@@ -1,0 +1,75 @@
+{
+  "kind": "collectionType",
+  "collectionName": "nendoroids",
+  "info": {
+    "name": "Nendoroid"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "number": {
+      "type": "integer"
+    },
+    "formattedName": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "series": {
+      "type": "string"
+    },
+    "manufacturer": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "price": {
+      "type": "integer"
+    },
+    "specifications": {
+      "type": "string"
+    },
+    "sculptor": {
+      "type": "string"
+    },
+    "cooperation": {
+      "type": "string"
+    },
+    "planningProduction": {
+      "type": "string"
+    },
+    "releasedBy": {
+      "type": "string"
+    },
+    "distributedBy": {
+      "type": "string"
+    },
+    "srcUrl": {
+      "type": "string"
+    },
+    "range": {
+      "type": "string"
+    },
+    "description": {
+      "type": "json"
+    },
+    "images": {
+      "type": "json"
+    },
+    "serie": {
+      "model": "serie",
+      "via": "nendoroids"
+    },
+    "interactions": {
+      "via": "nendoroid",
+      "collection": "interaction"
+    }
+  }
+}

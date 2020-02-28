@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/sculptors",
+      "handler": "sculptor.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/sculptors/count",
+      "handler": "sculptor.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/sculptors/:id",
+      "handler": "sculptor.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/sculptors",
+      "handler": "sculptor.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/sculptors/:id",
+      "handler": "sculptor.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/sculptors/:id",
+      "handler": "sculptor.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

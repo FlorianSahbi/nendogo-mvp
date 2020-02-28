@@ -1,0 +1,13 @@
+.anim {
+  animation: 120s linear 0s infinite alternate slidein;
+}
+
+@keyframes slidein {
+  from {
+    top: -3000px;
+  }
+
+  to {
+    top: -7500px;
+  }
+}

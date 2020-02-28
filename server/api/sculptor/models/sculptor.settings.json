@@ -1,0 +1,17 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sculptors",
+  "info": {
+    "name": "Sculptor"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "interactions",
+  "info": {
+    "name": "Interaction"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "LIKE",
+        "WISH",
+        "OWN"
+      ]
+    },
+    "nendoroid": {
+      "model": "nendoroid",
+      "via": "interactions"
+    },
+    "user": {
+      "plugin": "users-permissions",
+      "model": "user",
+      "via": "interactions"
+    }
+  }
+}

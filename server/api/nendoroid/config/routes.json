@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/nendoroids",
+      "handler": "nendoroid.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/nendoroids/count",
+      "handler": "nendoroid.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/nendoroids/:id",
+      "handler": "nendoroid.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/nendoroids",
+      "handler": "nendoroid.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/nendoroids/:id",
+      "handler": "nendoroid.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/nendoroids/:id",
+      "handler": "nendoroid.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
