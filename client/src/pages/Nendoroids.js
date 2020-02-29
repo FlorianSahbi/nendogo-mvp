@@ -1,9 +1,10 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { useQuery, gql } from '@apollo/client';
 import Loader from "../components/Loader";
 import { useHistory } from "react-router-dom";
 import Header from "../components/Header";
 import Spacer from "../components/Spacer";
+import { IoIosHeartEmpty, IoIosHeart } from 'react-icons/io';
 
 const GET_SERIES = gql`
   query {
@@ -72,9 +73,10 @@ const GET_NENDOROIDS = gql`
 `;
 
 function InteractionsButton(nendoId, type) {
-  return(
+  return (
     <div>
-
+      <IoIosHeart color="red" size="2rem"/>
+      <IoIosHeartEmpty color="red" size="2rem" />
     </div>
   )
 }
@@ -109,6 +111,7 @@ export function Card({ image, formattedName, path }) {
       justifyContent: "center",
       alignItems: "center",
       position: "absolute",
+      flexDirection: "column",
       height: "100%",
       width: "100%",
       top: "120%",
@@ -120,6 +123,8 @@ export function Card({ image, formattedName, path }) {
     },
     foregroundHover: {
       display: "flex",
+      flexDirection: "column",
+
       justifyContent: "center",
       alignItems: "center",
       position: "absolute",
@@ -137,6 +142,7 @@ export function Card({ image, formattedName, path }) {
     <div onMouseEnter={() => setIsActive(true)} onMouseLeave={() => setIsActive(false)} onClick={() => history.push(path)} style={styles.root}>
       <div style={styles.imgWrapper}>
         <div style={isActive ? styles.foregroundHover : styles.foreground}>
+          <InteractionsButton />
           {formattedName}
         </div>
         <img style={styles.img} src={image[0]} />
