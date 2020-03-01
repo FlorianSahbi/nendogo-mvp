@@ -72,12 +72,30 @@ const GET_NENDOROIDS = gql`
   }
 `;
 
-function InteractionsButton(nendoId, type) {
+function InteractionsButton({ e, nendoId, isLiked = false }) {
+  const [liked, setLiked] = useState(isLiked)
+  const styles = {
+    root: {
+      position: "absolute",
+      top: 0,
+      right: 0,
+      margin: "1rem",
+      zIndex: 9999,
+    }
+  }
+
+  const handleInteraction = (e, bool) => {
+    e.stopPropagation();
+    setLiked(bool);
+  }
   return (
-    <div>
-      <IoIosHeart color="red" size="2rem"/>
-      <IoIosHeartEmpty color="red" size="2rem" />
-    </div>
+    <>
+      {
+        liked
+          ? <IoIosHeart style={styles.root} onClick={(e) => handleInteraction(e, false)} color="red" size="2rem" />
+          : <IoIosHeartEmpty style={styles.root} onClick={(e) => handleInteraction(e, true)} color="red" size="2rem" />
+      }
+    </>
   )
 }
 
@@ -86,6 +104,7 @@ export function Card({ image, formattedName, path }) {
   const [isActive, setIsActive] = useState(false);
   const styles = {
     root: {
+      zIndex: 1,
       cursor: "pointer",
       height: "100%",
       width: "100%",
@@ -140,9 +159,9 @@ export function Card({ image, formattedName, path }) {
   }
   return (
     <div onMouseEnter={() => setIsActive(true)} onMouseLeave={() => setIsActive(false)} onClick={() => history.push(path)} style={styles.root}>
+      <InteractionsButton />
       <div style={styles.imgWrapper}>
         <div style={isActive ? styles.foregroundHover : styles.foreground}>
-          <InteractionsButton />
           {formattedName}
         </div>
         <img style={styles.img} src={image[0]} />
