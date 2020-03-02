@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useQuery, gql } from '@apollo/client';
+import { useQuery, gql, useMutation } from '@apollo/client';
 import Loader from "../components/Loader";
 import { useHistory } from "react-router-dom";
 import Header from "../components/Header";
@@ -72,8 +72,20 @@ const GET_NENDOROIDS = gql`
   }
 `;
 
-function InteractionsButton({ e, nendoId, isLiked = false }) {
+function InteractionsButton({ nendoId, isLiked = false }) {
+  const CREATE_INTERACTION = gql`
+    mutation CreateInteraction($type: ENUM_INTERACTION_TYPE, $user: ID!, $nendoroid: ID!) {
+      createInteraction(
+        input: { data: { type: $type, user: $user, nendoroid: $nendoroid } }
+      ) {
+        interaction {
+          id
+        }
+      }
+    }
+  `;
   const [liked, setLiked] = useState(isLiked)
+  const [createInteraction] = useMutation(CREATE_INTERACTION);
   const styles = {
     root: {
       position: "absolute",
@@ -84,22 +96,27 @@ function InteractionsButton({ e, nendoId, isLiked = false }) {
     }
   }
 
-  const handleInteraction = (e, bool) => {
+  const removeLike = (e, bool) => {
     e.stopPropagation();
     setLiked(bool);
+  }
+  const addLike = (e, bool) => {
+    e.stopPropagation();
+    setLiked(bool);
+    createInteraction({ variables: { type: "LIKE", nendoroid: nendoId, user: "5edfb1a1f96ff4b01f6a4a5e" } });
   }
   return (
     <>
       {
         liked
-          ? <IoIosHeart style={styles.root} onClick={(e) => handleInteraction(e, false)} color="red" size="2rem" />
-          : <IoIosHeartEmpty style={styles.root} onClick={(e) => handleInteraction(e, true)} color="red" size="2rem" />
+          ? <IoIosHeart style={styles.root} onClick={(e) => removeLike(e, false)} color="red" size="2rem" />
+          : <IoIosHeartEmpty style={styles.root} onClick={(e) => addLike(e, true)} color="red" size="2rem" />
       }
     </>
   )
 }
 
-export function Card({ image, formattedName, path }) {
+export function Card({ id, image, formattedName, path }) {
   const history = useHistory();
   const [isActive, setIsActive] = useState(false);
   const styles = {
@@ -159,7 +176,7 @@ export function Card({ image, formattedName, path }) {
   }
   return (
     <div onMouseEnter={() => setIsActive(true)} onMouseLeave={() => setIsActive(false)} onClick={() => history.push(path)} style={styles.root}>
-      <InteractionsButton />
+      <InteractionsButton nendoId={id} />
       <div style={styles.imgWrapper}>
         <div style={isActive ? styles.foregroundHover : styles.foreground}>
           {formattedName}
@@ -236,7 +253,7 @@ function Nendoroids() {
         <Filters onFilter={(filter) => setFilter(filter)} />
         <Spacer spacing={1} />
         <div style={styles.list}>
-          {data.nendoroids.map(({ id, formattedName, images }) => <Card formattedName={formattedName} image={images} path={`/nendoroid/${id}`} fill />)}
+          {data.nendoroids.map(({ id, formattedName, images }) => <Card id={id} formattedName={formattedName} image={images} path={`/nendoroid/${id}`} fill />)}
         </div>
       </div>
     );
