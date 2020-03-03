@@ -66,13 +66,17 @@ const GET_NENDOROIDS = gql`
   # }
 
   query GetNendoroids($chu: String) {
-    nendoroids(where: {series : $chu}, sort: "formattedName") {
-      ...Core 
+    nendoroids(where: {series : $chu}, sort: "number") {
+      ...Core
+      interactions(where:{user:{id: "5edfb1a1f96ff4b01f6a4a5e"}}) {
+        id
+      }
     }
   }
 `;
 
-function InteractionsButton({ nendoId, isLiked = false }) {
+function InteractionsButton({ nendoId, isLiked = false, interactionId = null }) {
+
   const CREATE_INTERACTION = gql`
     mutation CreateInteraction($type: ENUM_INTERACTION_TYPE, $user: ID!, $nendoroid: ID!) {
       createInteraction(
@@ -84,8 +88,20 @@ function InteractionsButton({ nendoId, isLiked = false }) {
       }
     }
   `;
+
+  const DELETE_INTERACTION = gql`
+    mutation DeleteInteraction($id: ID!){
+      deleteInteraction(input: { where: { id: $id } }) {
+        interaction {
+          id
+        }
+      }
+    }
+  `;
+
   const [liked, setLiked] = useState(isLiked)
   const [createInteraction] = useMutation(CREATE_INTERACTION);
+  const [deleteInteraction] = useMutation(DELETE_INTERACTION);
   const styles = {
     root: {
       position: "absolute",
@@ -99,11 +115,13 @@ function InteractionsButton({ nendoId, isLiked = false }) {
   const removeLike = (e, bool) => {
     e.stopPropagation();
     setLiked(bool);
+    deleteInteraction({ variables: { id: interactionId } })
   }
+
   const addLike = (e, bool) => {
     e.stopPropagation();
     setLiked(bool);
-    createInteraction({ variables: { type: "LIKE", nendoroid: nendoId, user: "5edfb1a1f96ff4b01f6a4a5e" } });
+    createInteraction({ variables: { type: "LIKE", nendoroid: nendoId, user: "5edd788a75767a6829524f07" } });
   }
   return (
     <>
@@ -116,7 +134,7 @@ function InteractionsButton({ nendoId, isLiked = false }) {
   )
 }
 
-export function Card({ id, image, formattedName, path }) {
+export function Card({ id, image, formattedName, path, interactions }) {
   const history = useHistory();
   const [isActive, setIsActive] = useState(false);
   const styles = {
@@ -176,7 +194,7 @@ export function Card({ id, image, formattedName, path }) {
   }
   return (
     <div onMouseEnter={() => setIsActive(true)} onMouseLeave={() => setIsActive(false)} onClick={() => history.push(path)} style={styles.root}>
-      <InteractionsButton nendoId={id} />
+      <InteractionsButton nendoId={id} isLiked={interactions.length > 0} interactionId={interactions.length > 0 && interactions[0].id} />
       <div style={styles.imgWrapper}>
         <div style={isActive ? styles.foregroundHover : styles.foreground}>
           {formattedName}
@@ -253,7 +271,7 @@ function Nendoroids() {
         <Filters onFilter={(filter) => setFilter(filter)} />
         <Spacer spacing={1} />
         <div style={styles.list}>
-          {data.nendoroids.map(({ id, formattedName, images }) => <Card id={id} formattedName={formattedName} image={images} path={`/nendoroid/${id}`} fill />)}
+          {data.nendoroids.map(({ id, formattedName, images, interactions }) => <Card id={id} interactions={interactions} formattedName={formattedName} image={images} path={`/nendoroid/${id}`} fill />)}
         </div>
       </div>
     );
