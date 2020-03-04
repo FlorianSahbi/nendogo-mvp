@@ -8,6 +8,12 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import FeaturedImage from "../components/FeaturedImage";
 
+const GET_MY_ID = gql`
+    query MyId {
+      myId @client
+    }
+`;
+
 
 const DotIndicator = ({ onClick }) => {
   const styles = {
@@ -34,13 +40,19 @@ const DotIndicator = ({ onClick }) => {
 }
 
 const Pagination = ({ element, pages }) => {
+  const { data: {myId} } = useQuery(GET_MY_ID);
+  console.log(myId)
+
   const GET_NENDOROIDS_PAGINATION = gql`
-    query GetNendoroidsPagination($limit: Int, $start: Int) {
+    query GetNendoroidsPagination($limit: Int, $start: Int, $currentUser: String) {
       nendoroids(limit: $limit, start: $start, sort: "number") {
         id
         formattedName
         images
         number
+        interactions(where:{user:{id: $currentUser}}) {
+          id
+        }
       }
     }
   `;
@@ -48,13 +60,11 @@ const Pagination = ({ element, pages }) => {
   const { data, loading, error, fetchMore } = useQuery(GET_NENDOROIDS_PAGINATION, {
     variables: {
       limit: element,
-      start: 0
+      start: 0,
+      currentUser: myId
     },
   });
 
-  const styles = {
-
-  }
 
   const initDots = () => {
     let dots = [];
@@ -67,7 +77,7 @@ const Pagination = ({ element, pages }) => {
   return (
     <>
       <div style={{ display: "grid", gridTemplateColumns: `repeat(${element}, 1fr)`, gridTemplateRows: "1fr", height: "400px" }}>
-        {data && data.nendoroids.map(({ id, images, formattedName }) => <Card image={images} formattedName={formattedName} path={`/nendoroid/${id}`} />).sort(function (a, b) { return a.value + b.value })}
+        {data && data.nendoroids.map(({ id, images, formattedName, interactions }) => <Card id={id} interactions={interactions} image={images} formattedName={formattedName} path={`/nendoroid/${id}`} />).sort(function (a, b) { return a.value + b.value })}
       </div>
       <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
 
@@ -80,7 +90,7 @@ const Pagination = ({ element, pages }) => {
 
 function Home() {
   console.log("home")
-
+ 
   return (
     <section style={styles.root}>
 

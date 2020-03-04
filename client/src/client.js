@@ -47,4 +47,15 @@ cache.writeQuery({
   }
 });
 
+cache.writeQuery({
+  query: gql`
+    query myId {
+      myId @client
+    }
+  `,
+  data: {
+    myId: localStorage.getItem("myId"),
+  }
+});
+
 export default client;

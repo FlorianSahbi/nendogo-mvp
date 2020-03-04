@@ -68,7 +68,7 @@ const GET_NENDOROIDS = gql`
   query GetNendoroids($chu: String) {
     nendoroids(where: {series : $chu}, sort: "number") {
       ...Core
-      interactions(where:{user:{id: "5edfb1a1f96ff4b01f6a4a5e"}}) {
+      interactions(where:{user:{id: $id}}) {
         id
       }
     }
@@ -121,7 +121,7 @@ function InteractionsButton({ nendoId, isLiked = false, interactionId = null }) 
   const addLike = (e, bool) => {
     e.stopPropagation();
     setLiked(bool);
-    createInteraction({ variables: { type: "LIKE", nendoroid: nendoId, user: "5edd788a75767a6829524f07" } });
+    createInteraction({ variables: { type: "LIKE", nendoroid: nendoId, user: localStorage.getItem("myId") } });
   }
   return (
     <>
@@ -238,7 +238,7 @@ function Filters({ onFilter }) {
 function Nendoroids() {
   const [filter, setFilter] = useState("Naruto Shippuden");
   const { data, loading, error } = useQuery(GET_NENDOROIDS, {
-    variables: { chu: filter }
+    variables: { chu: filter, id: localStorage.getItem("myId") }
   });
   const styles = {
     root: {

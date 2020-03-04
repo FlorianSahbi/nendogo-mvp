@@ -3,13 +3,17 @@ import { useQuery, gql, useMutation, useApolloClient } from "@apollo/client";
 import "./Login.css";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
-import Loader from "../components/Loader";
-
 
 
 const IS_LOGGED_ID = gql`
     query userIsLoggedIn {
-      isLoggedIn
+      isLoggedIn @client
+    }
+`;
+
+const GET_MY_ID = gql`
+    query MyId {
+      myId @client
     }
 `;
 
@@ -100,6 +104,7 @@ function Login() {
           jwt
       
           user {
+            id
             email
             username
           }
@@ -109,9 +114,14 @@ function Login() {
   const [login] = useMutation(LOGIN, {
     onCompleted: data => {
       localStorage.setItem("nendogo", data.login.jwt);
+      localStorage.setItem("myId", data.login.user.id);
       client.writeQuery({
         query: IS_LOGGED_ID,
         data: { isLoggedIn: true }
+      })
+      client.writeQuery({
+        query: GET_MY_ID,
+        data: { myId: data.login.user.id }
       })
       history.push("/");
     },
