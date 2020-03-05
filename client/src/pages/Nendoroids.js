@@ -65,7 +65,7 @@ const GET_NENDOROIDS = gql`
   #   }
   # }
 
-  query GetNendoroids($chu: String) {
+  query GetNendoroids($chu: String, $id: String) {
     nendoroids(where: {series : $chu}, sort: "number") {
       ...Core
       interactions(where:{user:{id: $id}}) {

@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import Button from "../components/Button";
 import Image from "../components/Image";
 import Loader from "../components/Loader";
+import { Card } from "../pages/Nendoroids";
 
 const GET_USER = gql`
   query GetUser($id: ID!) {
@@ -13,6 +14,13 @@ const GET_USER = gql`
       username
       profilePicture {
         url
+      }
+      interactions {
+        nendoroid {
+          images
+          formattedName
+          id
+        }
       }
     }
   }
@@ -55,12 +63,15 @@ function User() {
             <Image src={`http://localhost:1337${data.user.profilePicture.url}`} alt="profil" round size={227} />
           } */}
 
-          <Button onHoverButton={() => {}} label={data.me.username} />
+          <Button onHoverButton={() => { }} label={data.me.username} />
         </div>
       </div>
     );
   }
+
+
   if (data.user) {
+    console.log(data.user)
     console.log("you")
     return (
       <div style={styles.root}>
@@ -68,8 +79,12 @@ function User() {
           {/* {data.user.profilePicture || data.me.profilePicture &&
             <Image src={`http://localhost:1337${data.user.profilePicture.url}`} alt="profil" round size={227} />
           } */}
+          <div style={{ display: 'grid', gridTemplateColumns: "repeat(5, 1fr)" }}>
 
-          <Button onHoverButton={() => {}} label={data.user.username || data.me.username} />
+            {data.user.interactions.map(({ nendoroid: { id, formattedName, images } }) => <Card interactions={[]} id={id} formattedName={formattedName} image={images} path={`nendoroid/${id}`} />)}
+          </div>
+
+          <Button onHoverButton={() => { }} label={data.user.username || data.me.username} />
         </div>
       </div>
     );
