@@ -44,7 +44,6 @@ const GET_NENDOROIDS = gql`
 const RelatedProduct = ({ nendoroids }) => {
   const params = useParams();
 
-  console.log(nendoroids)
   return (
     <div style={{display: "grid", gridTemplateColumns: "repeat(10, 1fr)"}}>
       {nendoroids.filter(n => n.id !== params.id).map(({id, images, formattedName}) => <Card image={images} formattedName={formattedName} path={`/nendoroid/${id}`} />)}

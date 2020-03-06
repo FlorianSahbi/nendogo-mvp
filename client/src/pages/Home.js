@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../Reset.css';
 import { useQuery, gql } from '@apollo/client';
 import Spacer from "../components/Spacer";
@@ -7,6 +7,7 @@ import Typography from "../components/Typography";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import FeaturedImage from "../components/FeaturedImage";
+
 
 const GET_MY_ID = gql`
     query MyId {
@@ -40,8 +41,7 @@ const DotIndicator = ({ onClick }) => {
 }
 
 const Pagination = ({ element, pages }) => {
-  const { data: {myId} } = useQuery(GET_MY_ID);
-  console.log(myId)
+  const { data: { myId } } = useQuery(GET_MY_ID);
 
   const GET_NENDOROIDS_PAGINATION = gql`
     query GetNendoroidsPagination($limit: Int, $start: Int, $currentUser: String) {
@@ -89,8 +89,6 @@ const Pagination = ({ element, pages }) => {
 }
 
 function Home() {
-  console.log("home")
- 
   return (
     <section style={styles.root}>
 

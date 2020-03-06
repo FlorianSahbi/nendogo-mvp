@@ -1,16 +1,24 @@
 import React, { useState } from 'react';
-import { useQuery, gql, useMutation } from '@apollo/client';
+import { useQuery, gql, useMutation, useApolloClient } from '@apollo/client';
 import Loader from "../components/Loader";
 import { useHistory } from "react-router-dom";
 import Header from "../components/Header";
 import Spacer from "../components/Spacer";
 import { IoIosHeartEmpty, IoIosHeart } from 'react-icons/io';
 
+
+
 const GET_SERIES = gql`
   query {
     series {
       name
     }
+  }
+`;
+
+const AUTHENTICATE_MODAL = gql`
+  query authenticateModal {
+    authenticationModal @client
   }
 `;
 
@@ -76,6 +84,13 @@ const GET_NENDOROIDS = gql`
 `;
 
 function InteractionsButton({ nendoId, isLiked = false, interactionId = null }) {
+  const client = useApolloClient();
+
+  const IS_USER_LOGGED_IN = gql`
+  query isUserLoggedIn {
+    isLoggedIn @client
+  }
+`;
 
   const CREATE_INTERACTION = gql`
     mutation CreateInteraction($type: ENUM_INTERACTION_TYPE, $user: ID!, $nendoroid: ID!) {
@@ -102,6 +117,7 @@ function InteractionsButton({ nendoId, isLiked = false, interactionId = null }) 
   const [liked, setLiked] = useState(isLiked)
   const [createInteraction] = useMutation(CREATE_INTERACTION);
   const [deleteInteraction] = useMutation(DELETE_INTERACTION);
+  const { data: { isLoggedIn } } = useQuery(IS_USER_LOGGED_IN);
   const styles = {
     root: {
       position: "absolute",
@@ -120,8 +136,16 @@ function InteractionsButton({ nendoId, isLiked = false, interactionId = null }) 
 
   const addLike = (e, bool) => {
     e.stopPropagation();
-    setLiked(bool);
-    createInteraction({ variables: { type: "LIKE", nendoroid: nendoId, user: localStorage.getItem("myId") } });
+    if (isLoggedIn) {
+      setLiked(bool);
+      createInteraction({ variables: { type: "LIKE", nendoroid: nendoId, user: localStorage.getItem("myId") } });
+    } else {
+
+      client.writeQuery({
+        query: AUTHENTICATE_MODAL,
+        data: { authenticationModal: true }
+      })
+    }
   }
   return (
     <>
@@ -137,6 +161,7 @@ function InteractionsButton({ nendoId, isLiked = false, interactionId = null }) 
 export function Card({ id, image, formattedName, path, interactions }) {
   const history = useHistory();
   const [isActive, setIsActive] = useState(false);
+  const { data: modalData, error, loading } = useQuery(AUTHENTICATE_MODAL)
   const styles = {
     root: {
       zIndex: 1,

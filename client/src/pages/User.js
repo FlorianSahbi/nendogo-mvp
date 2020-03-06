@@ -55,7 +55,6 @@ function User() {
     return <p>{error.message}</p>
   }
   if (data.me) {
-    console.log("me")
     return (
       <div style={styles.root}>
         <div>
@@ -71,8 +70,6 @@ function User() {
 
 
   if (data.user) {
-    console.log(data.user)
-    console.log("you")
     return (
       <div style={styles.root}>
         <div>

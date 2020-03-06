@@ -2,6 +2,24 @@ import { ApolloClient, HttpLink, InMemoryCache, toReference, gql } from '@apollo
 import { resolvers, typeDefs } from './localState/resolvers';
 import { setContext } from "apollo-link-context";
 
+const IS_USER_LOGGED_IN = gql`
+  query isUserLoggedIn {
+    isLoggedIn @client
+  }
+`;
+
+const MY_ID = gql`
+  query myId {
+    myId @client
+  }
+`;
+
+const AUTHENTICATE_MODAL = gql`
+  query authenticateModal {
+    authenticationModal @client
+  }
+`;
+
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem('nendogo');
   return {
@@ -37,22 +55,21 @@ const client = new ApolloClient({
 });
 
 cache.writeQuery({
-  query: gql`
-    query IsUserLoggedIn {
-      isLoggedIn @client
-    }
-  `,
+  query: AUTHENTICATE_MODAL,
+  data: {
+    authenticationModal: false,
+  }
+});
+
+cache.writeQuery({
+  query: IS_USER_LOGGED_IN,
   data: {
     isLoggedIn: !!localStorage.getItem("nendogo"),
   }
 });
 
 cache.writeQuery({
-  query: gql`
-    query myId {
-      myId @client
-    }
-  `,
+  query: MY_ID,
   data: {
     myId: localStorage.getItem("myId"),
   }

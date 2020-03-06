@@ -53,7 +53,6 @@ function Serie() {
         <div style={styles.preview}>
           {data.serie.nendoroids.map(({ formattedName, images }) => {
             if (formattedName === hover) {
-              console.log("ok")
               return (
                 <div style={{ height: "100%", width: "100%", overflow: "hidden", flexWrap: "nowrap", transition: "all 0.2s ease" }}>
                   <img style={{ height: "100%", width: "100%", objectFit: "cover" }} src={images[0]} alt="bleu" />
@@ -61,7 +60,6 @@ function Serie() {
               )
             }
             if (hover === null) {
-              console.log("ok")
               return (
                 <div style={{ height: "100%", width: "100%", overflow: "hidden", flexWrap: "nowrap", transition: "all 0.2s ease" }}>
                   <img style={{ height: "100%", width: "100%", objectFit: "cover" }} src={images[0]} alt="bleu" />
@@ -69,7 +67,6 @@ function Serie() {
               )
             }
             else {
-              console.log("ok22")
               return (
                 <div style={{ height: "100%", width: "10%", overflow: "hidden", flexWrap: "nowrap", transition: "all 0.2s ease" }}>
                   <img style={{ height: "100%", width: "100%", objectFit: "cover" }} src={images[0]} alt="bleu" />

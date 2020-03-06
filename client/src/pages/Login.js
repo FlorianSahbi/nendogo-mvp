@@ -77,7 +77,6 @@ const Background = () => {
     data.nendoroids.map(({ images }) => {
       imagesArray = [...imagesArray, ...images];
     });
-    console.log(imagesArray.length)
     return (
       shuffle(imagesArray).map(image => {
         return (

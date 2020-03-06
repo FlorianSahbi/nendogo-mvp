@@ -53,7 +53,6 @@ const RegisterForm = () => {
 
   const onSubmit = data => registerAction({ variables: data });
 
-  console.log(watch("example"));
   return (
     <form onSubmit={handleSubmit(onSubmit)} >
       <input name="username" ref={register} placeholder="username" />
