@@ -17,21 +17,15 @@ import Users from "./pages/Users.js";
 import Sculptor from "./pages/Sculptor.js";
 import Login from "./pages/Login.js";
 import Modal from "./components/Modal";
-import { useApolloClient, useQuery, gql } from "@apollo/client";
-
-const AUTHENTICATE_MODAL = gql`
-  query authenticateModal {
-    authenticationModal @client
-  }
-`;
 
 export default function App() {
-  const { data } = useQuery(AUTHENTICATE_MODAL);
+  console.log("App")
   return (
     <>
-      <Modal isOpen={data.authenticationModal} />
+      <Modal isOpen={!!localStorage.getItem("authenticationModal")} />
       <Router>
         <Switch>
+
           <Route path="/login">
             <Login />
           </Route>
@@ -39,18 +33,23 @@ export default function App() {
           <Route path="/nendoroids">
             <Nendoroids />
           </Route>
+
           <Route path="/series">
             <Series />
           </Route>
+
           <Route path="/manufacturers">
             <Manufacturers />
           </Route>
+
           <Route path="/sculptors">
             <Sculptors />
           </Route>
+
           <Route path="/users">
             <Users />
           </Route>
+
           <Route path="/user/:id">
             <User />
           </Route>
@@ -58,12 +57,15 @@ export default function App() {
           <Route path="/nendoroid/:id">
             <Nendoroid />
           </Route>
+
           <Route path="/serie/:id">
             <Serie />
           </Route>
+
           <Route path="/manufacturer/:manufacturerName">
             <Manufacturer />
           </Route>
+
           <Route path="/sculptor/:sculptorName">
             <Sculptor />
           </Route>
@@ -72,6 +74,7 @@ export default function App() {
           <Route path="/">
             <Home />
           </Route>
+
         </Switch>
       </Router>
     </>

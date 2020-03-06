@@ -2,17 +2,19 @@ import React from 'react';
 import { useQuery, gql } from '@apollo/client';
 import Button from "../components/Button";
 import Loader from "../components/Loader";
+import Error from "../components/Error";
 
 const GET_SCULPTORS = gql`
   query {
     sculptors {
       id
-      name
+      nam
     }
   }
 `;
 
 function Sculptors() {
+  console.log(("Sculptors"))
   const { data, loading, error } = useQuery(GET_SCULPTORS);
   const styles = {
     root: {
@@ -35,13 +37,13 @@ function Sculptors() {
     return <Loader />;
   }
   if (error) {
-    return <p>{error.message}</p>
+    return <Error message={error.message} />;
   }
   if (data) {
     return (
       <div style={styles.root}>
         <div style={styles.list}>
-          {data.sculptors.map(({ name }) => <Button onHoverButton={() => {}} label={name} fill path={`/sculptor/${name}`} />)}
+          {data.sculptors.map(({ name }) => <Button onHoverButton={() => { }} label={name} fill path={`/sculptor/${name}`} />)}
         </div>
       </div>
     );

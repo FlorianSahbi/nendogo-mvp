@@ -30,6 +30,7 @@ const Card = ({ name, images }) => {
 }
 
 function Sculptor() {
+  console.log(("Sculptor"))
   const params = useParams();
   const { data, loading, error } = useQuery(GET_NENDOROIDS, { variables: { chu: params.sculptorName } });
   const styles = {

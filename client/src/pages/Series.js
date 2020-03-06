@@ -18,6 +18,7 @@ const GET_NENDOROIDS = gql`
 `;
 
 function Series() {
+  console.log(("Series"))
   const { data, loading, error } = useQuery(GET_NENDOROIDS);
   const [preview, setPreview] = useState([]);
   const styles = {

@@ -37,6 +37,7 @@ const GET_ME = gql`
 `;
 
 function User() {
+  console.log(("User"))
   const params = useParams();
   const userId = params.id;
 

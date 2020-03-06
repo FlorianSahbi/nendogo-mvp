@@ -8,14 +8,6 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import FeaturedImage from "../components/FeaturedImage";
 
-
-const GET_MY_ID = gql`
-    query MyId {
-      myId @client
-    }
-`;
-
-
 const DotIndicator = ({ onClick }) => {
   const styles = {
     root: {
@@ -41,7 +33,6 @@ const DotIndicator = ({ onClick }) => {
 }
 
 const Pagination = ({ element, pages }) => {
-  const { data: { myId } } = useQuery(GET_MY_ID);
 
   const GET_NENDOROIDS_PAGINATION = gql`
     query GetNendoroidsPagination($limit: Int, $start: Int, $currentUser: String) {
@@ -50,7 +41,7 @@ const Pagination = ({ element, pages }) => {
         formattedName
         images
         number
-        interactions(where:{user:{id: $currentUser}}) {
+        interactions(where:{user:{id: "3243232432"}}) {
           id
         }
       }
@@ -61,7 +52,7 @@ const Pagination = ({ element, pages }) => {
     variables: {
       limit: element,
       start: 0,
-      currentUser: myId
+      currentUser: "3243232432"
     },
   });
 
@@ -89,6 +80,7 @@ const Pagination = ({ element, pages }) => {
 }
 
 function Home() {
+  console.log(("Home"))
   return (
     <section style={styles.root}>
 

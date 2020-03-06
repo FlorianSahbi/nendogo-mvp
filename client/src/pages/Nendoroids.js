@@ -261,6 +261,7 @@ function Filters({ onFilter }) {
 }
 
 function Nendoroids() {
+  console.log(("Nendoroids"))
   const [filter, setFilter] = useState("Naruto Shippuden");
   const { data, loading, error } = useQuery(GET_NENDOROIDS, {
     variables: { chu: filter, id: localStorage.getItem("myId") }

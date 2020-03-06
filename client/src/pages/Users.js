@@ -66,6 +66,7 @@ const RegisterForm = () => {
 
 
 function Users() {
+  console.log(("Users"))
   const params = useParams();
   const { data, loading, error } = useQuery(GET_NENDOROIDS, { variables: { chu: params.serieName } });
   const styles = {

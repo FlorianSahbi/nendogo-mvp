@@ -51,7 +51,8 @@ const RelatedProduct = ({ nendoroids }) => {
   )
 }
 
-function Home() {
+function Nendoroid() {
+  console.log(("Nendoroid"))
   const params = useParams();
 
   useEffect(() => {
@@ -156,4 +157,4 @@ function Home() {
   }
 }
 
-export default Home;
+export default Nendoroid;

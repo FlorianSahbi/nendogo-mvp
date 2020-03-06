@@ -90,6 +90,7 @@ const Background = () => {
 }
 
 function Login() {
+  console.log(("Login"))
   const history = useHistory();
   const client = useApolloClient();
 

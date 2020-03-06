@@ -12,6 +12,7 @@ const GET_MANUFACTURERS = gql`
 `;
 
 function Manufacturers() {
+  console.log(("Manufacturers"))
   const { data, loading, error } = useQuery(GET_MANUFACTURERS);
   const styles = {
     root: {

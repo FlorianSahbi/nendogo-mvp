@@ -76,7 +76,7 @@ function Header() {
   return (
     <>
       <div style={styles.logo}>
-        <img src={logo} alt="title" />
+        <img onClick={() => history.push("/")} src={logo} alt="title" />
       </div>
       <Spacer spacing={5} />
 
@@ -106,7 +106,7 @@ function Header() {
 
       <div style={styles.buttonsWrapper}>
         <div style={styles.buttons}>
-          {buttons.map(({ label, path }) => <Button onHoverButton={() => {}} label={label} path={path} />)}
+          {buttons.map(({ label, path }) => <Button onHoverButton={() => { }} label={label} path={path} />)}
         </div>
       </div>
     </>

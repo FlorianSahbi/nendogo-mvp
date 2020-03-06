@@ -1,26 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import { ApolloProvider } from '@apollo/client';
 import client from "./client";
-import { ApolloProvider, useQuery, gql } from '@apollo/client';
-
-const IS_LOGGED_IN = gql`
-  query IsUserLoggedIn {
-    isLoggedIn @client
-  }
-`;
-
-function IsLoggedIn() {
-  const { data } = useQuery(IS_LOGGED_IN);
-  return data.isLoggedIn ? <App /> : <App />;
-}
+import App from './App';
+import './index.css';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <ApolloProvider client={client}>
-      <IsLoggedIn />
-    </ApolloProvider>
-  </React.StrictMode>,
+    <React.StrictMode>
+      <ApolloProvider client={client}>
+        <App />
+      </ApolloProvider>
+    </React.StrictMode>,
   document.getElementById('root')
 );

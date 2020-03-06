@@ -20,6 +20,7 @@ const GET_NENDOROIDS = gql`
 `;
 
 function Serie() {
+  console.log(("Serie"))
   const params = useParams();
   const [hover, setHover] = useState(null);
   const { data, loading, error } = useQuery(GET_NENDOROIDS, { variables: { chu: params.id } });

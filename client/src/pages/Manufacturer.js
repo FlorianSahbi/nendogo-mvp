@@ -14,6 +14,7 @@ const GET_NENDOROIDS = gql`
 `;
 
 function Manufacturer() {
+  console.log(("Manufacturer"))
   const params = useParams();
   const { data, loading, error } = useQuery(GET_NENDOROIDS, { variables: { chu: params.manufacturerName } });
   const styles = {
