@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import '../Reset.css';
 import { useQuery, gql } from '@apollo/client';
 import Spacer from "../components/Spacer";
-import { Card } from "../pages/Nendoroids";
+import Card from "../components/Card";
 import Typography from "../components/Typography";
 import Header from "../components/Header";
 import Footer from "../components/Footer";

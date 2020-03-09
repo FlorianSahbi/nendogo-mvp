@@ -5,12 +5,11 @@ import Typography from "../components/Typography";
 import Loader from "../components/Loader";
 import Spacer from "../components/Spacer";
 import Footer from "../components/Footer";
-import { Card } from "../pages/Nendoroids";
-
+import Card from "../components/Card";
 
 const GET_NENDOROIDS = gql`
-
-  fragment Core on Nendoroid {
+  query GetNendoroid($chu: ID!) {
+    nendoroid(id: $chu) {
     formattedName
     id
     number
@@ -19,24 +18,17 @@ const GET_NENDOROIDS = gql`
     images
     range
     sculptor
-
-    serie {
-      id
-      name
-      nendoroids {
-        formattedName
-        images
-        id
-      }
-    }
-    
     title
     description
-  }
-
-  query Nendo($chu: ID!) {
-    nendoroid(id: $chu) {
-      ...Core 
+    serie {
+        id
+        name
+        nendoroids {
+          formattedName
+          images
+          id
+        }
+      }
     }
   }
 `;
@@ -45,8 +37,8 @@ const RelatedProduct = ({ nendoroids }) => {
   const params = useParams();
 
   return (
-    <div style={{display: "grid", gridTemplateColumns: "repeat(10, 1fr)"}}>
-      {nendoroids.filter(n => n.id !== params.id).map(({id, images, formattedName}) => <Card image={images} formattedName={formattedName} path={`/nendoroid/${id}`} />)}
+    <div style={{ display: "grid", gridTemplateColumns: "repeat(10, 1fr)" }}>
+      {nendoroids.filter(n => n.id !== params.id).map(({ id, images, formattedName }) => <Card key={id} id={id} image={images} formattedName={formattedName} path={`/nendoroid/${id}`} />)}
     </div>
   )
 }
@@ -143,8 +135,6 @@ function Nendoroid() {
         </div>
 
         <Spacer spacing={3} />
-
-
 
         <RelatedProduct nendoroids={serie.nendoroids} />
 

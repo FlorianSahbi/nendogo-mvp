@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import Button from "../components/Button";
 import Image from "../components/Image";
 import Loader from "../components/Loader";
-import { Card } from "../pages/Nendoroids";
+import Card from "../components/Card";
 
 const GET_USER = gql`
   query GetUser($id: ID!) {
