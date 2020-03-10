@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Typography from "./Typography";
 import { useHistory, useLocation } from "react-router-dom";
 
-const Button = ({ label, path, fill = false, onHoverButton = false }) => {
+const Button = ({ label, path, fill = false }) => {
   const [isActive, setIsActive] = useState(false);
   const history = useHistory();
   const styles = {
@@ -38,7 +38,7 @@ const Button = ({ label, path, fill = false, onHoverButton = false }) => {
   }
 
   return (
-    <div style={styles.root} onClick={() => history.push(path)} onMouseEnter={() => {setIsActive(true); onHoverButton(label)}} onMouseLeave={() => {setIsActive(false); onHoverButton(null)}}>
+    <div style={styles.root} onClick={() => history.push(path)} onMouseEnter={() => { setIsActive(true); }} onMouseLeave={() => { setIsActive(false); }}>
       <div style={isActive ? styles.isActive : styles.wrapper}>
         <Typography type="body1" text={label} textAlign="center" />
       </div>

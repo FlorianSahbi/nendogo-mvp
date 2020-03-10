@@ -4,10 +4,10 @@ import Button from "../components/Button";
 import Loader from "../components/Loader";
 import Error from "../components/Error";
 import Header from "../components/Header";
+import GridLayout from "../components/GridLayout";
 import Footer from "../components/Footer";
 import Spacer from "../components/Spacer";
 import { GET_SCULPTORS } from "../graphql/sculptors";
-import video from "../assets/video/kill.mp4"
 import video1 from "../assets/video/reKill.mp4"
 
 const Foreground = () => {
@@ -43,7 +43,7 @@ function Video() {
       width: "100%",
       height: "100vh",
       overflow: "hidden",
-      position: "relative",     
+      position: "relative",
     },
     wrapperVideo: {
       minHeight: "100vh",
@@ -61,26 +61,6 @@ function Video() {
   )
 }
 
-function Feed({ sculptors, rows = 4, height = 200 }) {
-  const styles = {
-    root: {
-      width: "100%",
-      height: "100%",
-      display: "grid",
-      gridTemplateColumns: `repeat(${rows}, 1fr)`,
-      gridAutoRows: `${height}px`,
-      gridGap: "10px",
-    }
-  }
-  const { root } = styles;
-
-  return (
-    <div style={root}>
-      {sculptors.map(({ name }) => <Button onHoverButton={() => { }} label={name} fill path={`/sculptor/${name}`} />)}
-    </div>
-  )
-}
-
 function Sculptors() {
   const { data, loading, error } = useQuery(GET_SCULPTORS);
   const styles = {
@@ -91,17 +71,10 @@ function Sculptors() {
       alignItems: "center",
       height: "100%",
       width: "100%",
-      minWidth: "1280px",
       backgroundColor: "#121212",
     },
-    wrapper: {
-      width: "1280px",
-      height: "fit-content",
-      position: "relative",
-      top: "-0px",
-    }
   }
-  const { content, wrapper } = styles;
+  const { content } = styles;
 
   if (loading) {
     return <Loader />;
@@ -114,14 +87,16 @@ function Sculptors() {
   if (data) {
     return (
       <>
-        {/* <Header /> */}
+        <Header />
         <section style={content}>
           <Video />
-          <div style={wrapper}>
-            <Spacer spacing={3} />
-            <Feed sculptors={data.sculptors} />
-            <Spacer spacing={3} />
-          </div>
+          <Spacer spacing={1} />
+          <GridLayout itemsPerRow={4} rowHeight={200} width={1280}>
+            {
+              data.sculptors.map(({ name }) => <Button onHoverButton={() => { }} label={name} fill path={`/sculptor/${name}`} />)
+            }
+          </GridLayout>
+          <Spacer spacing={1} />
         </section>
         <Footer />
       </>

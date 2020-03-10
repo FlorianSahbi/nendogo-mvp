@@ -1,86 +1,54 @@
-import React, { useState } from 'react';
-import { useQuery, gql } from '@apollo/client';
+import React from 'react';
+import { useQuery } from '@apollo/client';
 import Button from "../components/Button";
-import Nendoroids from './Nendoroids';
 import Loader from "../components/Loader";
-
-const GET_NENDOROIDS = gql`
-  query {
-    series {
-      id
-      name
-      nendoroids {
-        name
-        images
-      }
-    }
-  }
-`;
+import Header from "../components/Header";
+import Spacer from "../components/Spacer";
+import Footer from "../components/Footer";
+import Error from "../components/Error";
+import GridLayout from "../components/GridLayout";
+import { GET_SERIES } from "../graphql/series";
 
 function Series() {
   console.log(("Series"))
-  const { data, loading, error } = useQuery(GET_NENDOROIDS);
-  const [preview, setPreview] = useState([]);
+  const { data, loading, error } = useQuery(GET_SERIES);
   const styles = {
-    root: {
-      height: "100vh",
+    content: {
+      minHeight: "100vh",
       width: "100vw",
       backgroundColor: "#121212",
-      display: "flex",
-      flexDirection: "row",
-    },
-    preview: {
-      width: "40vw",
-      overflow: "hidden",
+      padding: "10px",
       display: "flex",
       flexDirection: "column",
-      // flexWrap: "noWrap",
-    },
-    list: {
-      padding: "10px",
-      display: "grid",
-      gridAutoRows: "100px",
-      gridTemplateColumns: "repeat(7, 1fr)",
-      gridGap: "5px",
-      width: "100%",
-      justifyItems: "center",
+      justifyContent: "center",
       alignItems: "center",
+    },
+  };
+  const { content } = styles;
 
-      overflow: "auto",
-      width: "100%",
-
-    }
-  }
   if (loading) {
     return <Loader />
   }
+
   if (error) {
-    return <p>{error.message}</p>
+    return <Error message={error.message} />
   }
+
   if (data) {
     return (
-      <div style={styles.root}>
-
-        <div style={styles.preview}>
-          {preview.map((nendo) => nendo.images).map(img => img[0] || img[1]).map(img => {
-            return (
-              <div style={{ width: "100%", height: "50vh" }}>
-                <img style={{ height: "100%", width: "100%", objectFit: "cover" }} src={img} alt='f' />)
-              </div>
-            )
-          })}
-        </div>
-
-        <div style={styles.list}>
-          {data.series.map(({ id, name, nendoroids }) => {
-            return (
-              <div onMouseEnter={() => setPreview(nendoroids)} style={{ height: "100%", width: "100%" }}>
-                <Button onHoverButton={() => {}} label={name} fill path={`/serie/${id}`} />
-              </div>
-            )
-          })}
-        </div>
-      </div>
+      <>
+        <Header />
+        <section style={content}>
+          <Spacer spacing={1} />
+          <GridLayout itemsPerRow={4} rowHeight={200} width={1280}>
+            {
+              data.series.map(({ id, name }) => <Button onHoverButton={() => { }} label={name} fill path={`/serie/${id}`} />)
+            }
+          </GridLayout>
+          <Spacer spacing={1} />
+        </section>
+        <Footer />
+      </>
     );
   }
 }
