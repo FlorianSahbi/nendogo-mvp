@@ -38,7 +38,7 @@ const RelatedProduct = ({ nendoroids }) => {
 
   return (
     <div style={{ display: "grid", gridTemplateColumns: "repeat(10, 1fr)" }}>
-      {nendoroids.filter(n => n.id !== params.id).map(({ id, images, formattedName }) => <Card key={id} id={id} image={images} formattedName={formattedName} path={`/nendoroid/${id}`} />)}
+      {nendoroids.filter(n => n.id !== params.id).map(({ id, images, formattedName }) => <Card key={id} id={id} images={images} formattedName={formattedName} path={`/nendoroid/${id}`} />)}
     </div>
   )
 }

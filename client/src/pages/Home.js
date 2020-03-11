@@ -68,7 +68,7 @@ const Pagination = ({ element, pages }) => {
   return (
     <>
       <div style={{ display: "grid", gridTemplateColumns: `repeat(${element}, 1fr)`, gridTemplateRows: "1fr", height: "400px" }}>
-        {data && data.nendoroids.map(({ id, images, formattedName, interactions }) => <Card id={id} interactions={interactions} image={images} formattedName={formattedName} path={`/nendoroid/${id}`} />).sort(function (a, b) { return a.value + b.value })}
+        {data && data.nendoroids.map(({ id, images, formattedName, interactions }) => <Card id={id} interactions={interactions} images={images} formattedName={formattedName} path={`/nendoroid/${id}`} />).sort(function (a, b) { return a.value + b.value })}
       </div>
       <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
 

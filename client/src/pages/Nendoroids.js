@@ -93,7 +93,7 @@ function Nendoroids() {
         <Header />
         <Spacer spacing={3} />
         <GridLayout itemsPerRow={5} rowHeight={350}>
-          {data.nendoroids.map(({ id, formattedName, images, interactions }) => <Card id={id} interactions={interactions} formattedName={formattedName} image={images} path={`/nendoroid/${id}`} fill />)}
+          {data.nendoroids.map(({ id, formattedName, images, interactions }) => <Card id={id} interactions={interactions} formattedName={formattedName} images={images} path={`/nendoroid/${id}`} fill />)}
         </GridLayout>
       </div>
     );
