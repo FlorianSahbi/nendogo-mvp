@@ -7,6 +7,7 @@ import Header from "../components/Header";
 import GridLayout from "../components/GridLayout";
 import Footer from "../components/Footer";
 import Spacer from "../components/Spacer";
+import Layout from "../components/Layout";
 import { GET_SCULPTORS } from "../graphql/sculptors";
 import video1 from "../assets/video/reKill.mp4"
 
@@ -86,20 +87,16 @@ function Sculptors() {
 
   if (data) {
     return (
-      <>
-        <Header />
+      <Layout>
         <section style={content}>
           <Video />
-          <Spacer spacing={1} />
           <GridLayout itemsPerRow={4} rowHeight={200} width={1280}>
             {
               data.sculptors.map(({ name }) => <Button onHoverButton={() => { }} label={name} fill path={`/sculptor/${name}`} />)
             }
           </GridLayout>
-          <Spacer spacing={1} />
         </section>
-        <Footer />
-      </>
+      </Layout>
     );
   }
 }

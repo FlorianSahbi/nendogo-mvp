@@ -2,11 +2,9 @@ import React from 'react';
 import { useQuery } from '@apollo/client';
 import Button from "../components/Button";
 import Loader from "../components/Loader";
-import Header from "../components/Header";
-import Spacer from "../components/Spacer";
-import Footer from "../components/Footer";
 import Error from "../components/Error";
 import GridLayout from "../components/GridLayout";
+import Layout from "../components/Layout";
 import { GET_SERIES } from "../graphql/series";
 
 function Series() {
@@ -36,19 +34,15 @@ function Series() {
 
   if (data) {
     return (
-      <>
-        <Header />
+      <Layout>
         <section style={content}>
-          <Spacer spacing={1} />
           <GridLayout itemsPerRow={4} rowHeight={200} width={1280}>
             {
               data.series.map(({ id, name }) => <Button onHoverButton={() => { }} label={name} fill path={`/serie/${id}`} />)
             }
           </GridLayout>
-          <Spacer spacing={1} />
         </section>
-        <Footer />
-      </>
+      </Layout>
     );
   }
 }

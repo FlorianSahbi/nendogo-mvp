@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { useQuery, gql } from '@apollo/client';
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import Spacer from "../components/Spacer";
 import Error from "../components/Error";
 import Loader from "../components/Loader";
+import Layout from "../components/Layout";
 import Card from "../components/Card";
 import GridLayout from "../components/GridLayout";
 import { IoIosHeartEmpty, IoIosHeart } from 'react-icons/io';
@@ -90,15 +88,13 @@ function Nendoroids() {
 
   if (data) {
     return (
-      <div style={styles.root}>
-        <Header />
-        <Spacer spacing={3} />
-        <GridLayout itemsPerRow={5} rowHeight={350}>
-          {data.nendoroids.map(({ id, formattedName, images, interactions }) => <Card id={id} interactions={interactions} formattedName={formattedName} images={images} path={`/nendoroid/${id}`} fill />)}
-        </GridLayout>
-        <Spacer spacing={1} />
-        <Footer />
-      </div>
+      <Layout>
+        <div style={styles.root}>
+          <GridLayout itemsPerRow={5} rowHeight={350}>
+            {data.nendoroids.map(({ id, formattedName, images, interactions }) => <Card id={id} interactions={interactions} formattedName={formattedName} images={images} path={`/nendoroid/${id}`} fill />)}
+          </GridLayout>
+        </div>
+      </Layout>
     );
   }
 }

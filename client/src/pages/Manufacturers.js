@@ -1,6 +1,7 @@
 import React from 'react';
 import { useQuery, gql } from '@apollo/client';
 import Button from "../components/Button";
+import Layout from "../components/Layout";
 
 const GET_MANUFACTURERS = gql`
   query {
@@ -39,11 +40,13 @@ function Manufacturers() {
   }
   if (data) {
     return (
-      <div style={styles.root}>
-        <div style={styles.list}>
-          {data.manufacturers.map(({ name }) => <Button onHoverButton={() => {}} label={name} fill path={`/manufacturer/${name}`} />)}
+      <Layout>
+        <div style={styles.root}>
+          <div style={styles.list}>
+            {data.manufacturers.map(({ name }) => <Button onHoverButton={() => { }} label={name} fill path={`/manufacturer/${name}`} />)}
+          </div>
         </div>
-      </div>
+      </Layout>
     );
   }
 }

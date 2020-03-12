@@ -2,12 +2,12 @@ import React from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 
-function Layout({ chilren }) {
+function Layout({ children }) {
   return (
     <>
       <Header />
-      {chilren}
-      <Layout />
+      {children}
+      <Footer />
     </>
   )
 }

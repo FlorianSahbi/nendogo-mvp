@@ -3,6 +3,7 @@ import { useQuery, gql } from '@apollo/client';
 import { useParams } from "react-router-dom";
 import Button from "../components/Button";
 import Loader from "../components/Loader";
+import Layout from "../components/Layout";
 
 const GET_NENDOROIDS = gql`
   query Nendo($chu: String) {
@@ -38,11 +39,13 @@ function Manufacturer() {
   }
   if (data) {
     return (
-      <div style={styles.root}>
-        <div style={styles.list}>
-          {data.manufacturers.map(({ name }) => <Button onHoverButton={() => {}} label={name} />)}
+      <Layout>
+        <div style={styles.root}>
+          <div style={styles.list}>
+            {data.manufacturers.map(({ name }) => <Button onHoverButton={() => { }} label={name} />)}
+          </div>
         </div>
-      </div>
+      </Layout>
     );
   }
 }

@@ -7,6 +7,7 @@ import Error from "../components/Error";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Spacer from "../components/Spacer";
+import Layout from "../components/Layout";
 import GridLayout from "../components/GridLayout";
 
 const GET_NENDOROIDS = gql`
@@ -51,15 +52,17 @@ function Serie() {
 
   if (data) {
     return (
-      <div style={content}>
-        <Header />
-        <Spacer spacing={3} />
-        <GridLayout itemsPerRow={4} rowHeight={200} width={1280}>
-          {data.serie.nendoroids.map(({ id, formattedName }) => <Button onHoverButton={(f) => setHover(f)} fill label={formattedName} path={`/nendoroid/${id}`} />)}
-        </GridLayout>
-        <Spacer spacing={3} />
-        <Footer />
-      </div>
+      <Layout>
+        <div style={content}>
+          <Header />
+          <Spacer spacing={3} />
+          <GridLayout itemsPerRow={4} rowHeight={200} width={1280}>
+            {data.serie.nendoroids.map(({ id, formattedName }) => <Button onHoverButton={(f) => setHover(f)} fill label={formattedName} path={`/nendoroid/${id}`} />)}
+          </GridLayout>
+          <Spacer spacing={3} />
+          <Footer />
+        </div>
+      </Layout>
     );
   }
 }
