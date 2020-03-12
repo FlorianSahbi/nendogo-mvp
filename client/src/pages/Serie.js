@@ -3,11 +3,15 @@ import { useQuery, gql } from '@apollo/client';
 import { useParams } from "react-router-dom";
 import Button from "../components/Button";
 import Loader from "../components/Loader";
-import Image from "../components/Image";
+import Error from "../components/Error";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import Spacer from "../components/Spacer";
+import GridLayout from "../components/GridLayout";
 
 const GET_NENDOROIDS = gql`
-  query Nendo($chu: ID!) {
-    serie(id: $chu) {
+  query Nendo($id: ID!) {
+    serie(id: $id) {
       id
       name
       nendoroids {
@@ -23,62 +27,38 @@ function Serie() {
   console.log(("Serie"))
   const params = useParams();
   const [hover, setHover] = useState(null);
-  const { data, loading, error } = useQuery(GET_NENDOROIDS, { variables: { chu: params.id } });
+  const { data, loading, error } = useQuery(GET_NENDOROIDS, { variables: { id: params.id } });
   const styles = {
-    root: {
-      width: "100vw",
-      minHeight: "100vh",
+    content: {
+      position: "relative",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      height: "100%",
+      width: "100%",
       backgroundColor: "#121212",
     },
-    list: {
-      display: "grid",
-      gridAutoRows: "auto",
-      gridTemplateColumns: "repeat(5, 1fr)",
-      gridGap: "10px",
-      gridAutoRows: "120px"
-    },
-    preview: {
-      height: "70vh",
-      display: "flex",
-    }
   }
+  const { content } = styles;
+
   if (loading) {
     return <Loader />
   }
+
   if (error) {
-    return <p>{error.message}</p>
+    return <Error message={error.message} />
   }
+
   if (data) {
     return (
-      <div style={styles.root}>
-        <div style={styles.preview}>
-          {data.serie.nendoroids.map(({ formattedName, images }) => {
-            if (formattedName === hover) {
-              return (
-                <div style={{ height: "100%", width: "100%", overflow: "hidden", flexWrap: "nowrap", transition: "all 0.2s ease" }}>
-                  <img style={{ height: "100%", width: "100%", objectFit: "cover" }} src={images[0]} alt="bleu" />
-                </div>
-              )
-            }
-            if (hover === null) {
-              return (
-                <div style={{ height: "100%", width: "100%", overflow: "hidden", flexWrap: "nowrap", transition: "all 0.2s ease" }}>
-                  <img style={{ height: "100%", width: "100%", objectFit: "cover" }} src={images[0]} alt="bleu" />
-                </div>
-              )
-            }
-            else {
-              return (
-                <div style={{ height: "100%", width: "10%", overflow: "hidden", flexWrap: "nowrap", transition: "all 0.2s ease" }}>
-                  <img style={{ height: "100%", width: "100%", objectFit: "cover" }} src={images[0]} alt="bleu" />
-                </div>
-              )
-            }
-          })}
-        </div>
-        <div style={styles.list}>
+      <div style={content}>
+        <Header />
+        <Spacer spacing={3} />
+        <GridLayout itemsPerRow={4} rowHeight={200} width={1280}>
           {data.serie.nendoroids.map(({ id, formattedName }) => <Button onHoverButton={(f) => setHover(f)} fill label={formattedName} path={`/nendoroid/${id}`} />)}
-        </div>
+        </GridLayout>
+        <Spacer spacing={3} />
+        <Footer />
       </div>
     );
   }

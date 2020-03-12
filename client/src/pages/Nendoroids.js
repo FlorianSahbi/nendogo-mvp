@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useQuery, gql } from '@apollo/client';
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 import Spacer from "../components/Spacer";
 import Error from "../components/Error";
 import Loader from "../components/Loader";
@@ -84,7 +85,7 @@ function Nendoroids() {
   }
 
   if (error) {
-    return <Error />
+    return <Error message={error.message} />
   }
 
   if (data) {
@@ -95,6 +96,8 @@ function Nendoroids() {
         <GridLayout itemsPerRow={5} rowHeight={350}>
           {data.nendoroids.map(({ id, formattedName, images, interactions }) => <Card id={id} interactions={interactions} formattedName={formattedName} images={images} path={`/nendoroid/${id}`} fill />)}
         </GridLayout>
+        <Spacer spacing={1} />
+        <Footer />
       </div>
     );
   }
