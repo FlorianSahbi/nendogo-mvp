@@ -69,6 +69,7 @@ function Sculptors() {
       position: "relative",
       display: "flex",
       flexDirection: "column",
+      padding: "10px",
       alignItems: "center",
       height: "100%",
       width: "100%",
@@ -89,7 +90,7 @@ function Sculptors() {
     return (
       <Layout>
         <section style={content}>
-          <Video />
+          {/* <Video /> */}
           <GridLayout itemsPerRow={4} rowHeight={200} width={1280}>
             {
               data.sculptors.map(({ name }) => <Button onHoverButton={() => { }} label={name} fill path={`/sculptor/${name}`} />)
