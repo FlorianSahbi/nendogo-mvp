@@ -63,7 +63,7 @@ function User() {
             <Image src={`http://localhost:1337${data.user.profilePicture.url}`} alt="profil" round size={227} />
           } */}
 
-          <Button onHoverButton={() => { }} label={data.me.username} />
+          <Button label={data.me.username} />
         </div>
       </div>
     );
@@ -82,7 +82,7 @@ function User() {
             {data.user.interactions.map(({ nendoroid: { id, formattedName, images } }) => <Card interactions={[]} id={id} formattedName={formattedName} images={images} path={`nendoroid/${id}`} />)}
           </div>
 
-          <Button onHoverButton={() => { }} label={data.user.username || data.me.username} />
+          <Button label={data.user.username || data.me.username} />
         </div>
       </div>
     );

@@ -2,6 +2,10 @@ import React from 'react';
 import { useQuery, gql } from '@apollo/client';
 import Button from "../components/Button";
 import Layout from "../components/Layout";
+import GridLayout from "../components/GridLayout";
+import Loader from "../components/Loader";
+import Error from "../components/Error";
+
 
 const GET_MANUFACTURERS = gql`
   query {
@@ -16,35 +20,34 @@ function Manufacturers() {
   console.log(("Manufacturers"))
   const { data, loading, error } = useQuery(GET_MANUFACTURERS);
   const styles = {
-    root: {
+    content: {
+      minHeight: "100vh",
       width: "100vw",
       backgroundColor: "#121212",
       padding: "10px",
-    },
-    list: {
-      display: "grid",
-      gridAutoRows: "225px",
-      gridTemplateColumns: "repeat(6, 1fr)",
-      gridGap: "10px",
-      width: "100%",
-      justifyItems: "center",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
       alignItems: "center",
+    },
+  };
+  const { content } = styles;
 
-    }
-  }
   if (loading) {
-    return <p>Loading...</p>
+    return <Loader />
   }
+
   if (error) {
-    return <p>{error.message}</p>
+    return <Error message={error.message} />
   }
+
   if (data) {
     return (
       <Layout>
-        <div style={styles.root}>
-          <div style={styles.list}>
+        <div style={styles.content}>
+          <GridLayout itemsPerRow={4} rowHeight={200} width={1280}>
             {data.manufacturers.map(({ name }) => <Button onHoverButton={() => { }} label={name} fill path={`/manufacturer/${name}`} />)}
-          </div>
+          </GridLayout>
         </div>
       </Layout>
     );
