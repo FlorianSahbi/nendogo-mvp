@@ -26,12 +26,7 @@ function LoginButton() {
 }
 
 function LogoutButton() {
-  const client = useApolloClient();
   const handleLogout = () => {
-    client.writeQuery({
-      query: IS_LOGGED_ID,
-      data: { isLoggedIn: false }
-    })
     localStorage.clear();
   }
   return (
@@ -74,18 +69,18 @@ function Header() {
   ];
 
   return (
-    <div style={{backgroundColor: "#121212", borderBottom: "2px solid #DF0001",}}>
+    <div style={{ backgroundColor: "#121212", borderBottom: "2px solid #DF0001", }}>
       <div style={styles.logo}>
         <img onClick={() => history.push("/")} src={logo} alt="title" />
       </div>
       <Spacer spacing={5} />
 
-      {localStorage.getItem("nendogo")
+      {localStorage.getItem("nendogo_picture")
         ?
         (
           <div style={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
             <div style={styles.profile} onClick={() => history.push("user/me")}>
-              <Image src="https://img.8wallpapers.com/uploads/2019/01/1f8ace94122643ad9b5808ec-1000x625.jpg" alt="profil" round size={227} />
+              <Image src={localStorage.getItem("nendogo_picture")} alt="profil" round size={227} />
             </div>
             <LogoutButton />
           </div>
@@ -106,7 +101,7 @@ function Header() {
 
       <div style={styles.buttonsWrapper}>
         <div style={styles.buttons}>
-          {buttons.map(({ label, path }) => <Button onHoverButton={() => { }} label={label} path={path} />)}
+          {buttons.map(({ label, path }) => <Button label={label} path={path} />)}
         </div>
       </div>
       <Spacer spacing={5} />

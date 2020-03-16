@@ -38,7 +38,7 @@ function Series() {
         <section style={content}>
           <GridLayout itemsPerRow={4} rowHeight={200} width={1280}>
             {
-              data.series.map(({ id, name }) => <Button onHoverButton={() => { }} label={name} fill path={`/serie/${id}`} />)
+              data.series.map(({ id, name }) => <Button label={name} fill path={`/serie/${id}`} />)
             }
           </GridLayout>
         </section>

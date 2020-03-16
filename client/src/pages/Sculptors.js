@@ -93,7 +93,7 @@ function Sculptors() {
           {/* <Video /> */}
           <GridLayout itemsPerRow={4} rowHeight={200} width={1280}>
             {
-              data.sculptors.map(({ name }) => <Button onHoverButton={() => { }} label={name} fill path={`/sculptor/${name}`} />)
+              data.sculptors.map(({ name }) => <Button label={name} fill path={`/sculptor/${name}`} />)
             }
           </GridLayout>
         </section>

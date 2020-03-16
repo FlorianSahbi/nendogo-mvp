@@ -42,7 +42,7 @@ function Manufacturer() {
       <Layout>
         <div style={styles.root}>
           <div style={styles.list}>
-            {data.manufacturers.map(({ name }) => <Button onHoverButton={() => { }} label={name} />)}
+            {data.manufacturers.map(({ name }) => <Button label={name} />)}
           </div>
         </div>
       </Layout>

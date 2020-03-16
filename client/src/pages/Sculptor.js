@@ -36,7 +36,7 @@ function Sculptor() {
       <div style={styles.root}>
         <GridLayout itemsPerRow={4} rowHeight={200} width={1280}>
           {
-            data.sculptors.map(({ name }) => <Button onHoverButton={() => { }} label={name} />)
+            data.sculptors.map(({ name }) => <Button label={name} />)
           }
         </GridLayout>
       </div>

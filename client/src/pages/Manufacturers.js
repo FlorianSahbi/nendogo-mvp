@@ -46,7 +46,7 @@ function Manufacturers() {
       <Layout>
         <div style={styles.content}>
           <GridLayout itemsPerRow={4} rowHeight={200} width={1280}>
-            {data.manufacturers.map(({ name }) => <Button onHoverButton={() => { }} label={name} fill path={`/manufacturer/${name}`} />)}
+            {data.manufacturers.map(({ name }) => <Button label={name} fill path={`/manufacturer/${name}`} />)}
           </GridLayout>
         </div>
       </Layout>
