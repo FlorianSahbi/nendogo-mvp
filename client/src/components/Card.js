@@ -23,7 +23,7 @@ const Image = ({ src, alt }) => {
   )
 }
 
-const Foreground = ({ name, isActive = false }) => {
+const Foreground = ({ name, number, isActive = false }) => {
   const styles = {
     default: {
       display: "flex",
@@ -55,11 +55,12 @@ const Foreground = ({ name, isActive = false }) => {
   return (
     <div style={isActive ? styles.active : styles.default}>
       <Typography text={name} type="h3" textAlign="center" />
+      <Typography text={number} type="body1" textAlign="center" />
     </div>
   )
 }
 
-function Card({ id, images, formattedName, path }) {
+function Card({ id, images, formattedName, path, number }) {
   const history = useHistory();
   const [isActive, setIsActive] = useState(false);
   const styles = {
@@ -80,7 +81,7 @@ function Card({ id, images, formattedName, path }) {
       onClick={() => history.push(path)}
       style={styles.root}
     >
-      <Foreground name={formattedName} isActive={isActive} />
+      <Foreground name={formattedName} number={number} isActive={isActive} />
       <Image src={images[0]} alt={`${id}-card`} />
     </div>
   )

@@ -6,27 +6,25 @@ import Loader from "../components/Loader";
 import Spacer from "../components/Spacer";
 import Footer from "../components/Footer";
 import Card from "../components/Card";
+import { format } from 'date-fns'
 
 const GET_NENDOROIDS = gql`
   query GetNendoroid($chu: ID!) {
     nendoroid(id: $chu) {
-    formattedName
-    id
-    number
-    manufacturer
-    price
-    images
-    range
-    sculptor
-    title
-    description
-    serie {
-        id
-        name
+      formattedName
+      id
+      number
+      price
+      images
+      range
+      title
+      description
+      releaseDate
+      series {
         nendoroids {
+          id
           formattedName
           images
-          id
         }
       }
     }
@@ -100,7 +98,7 @@ function Nendoroid() {
     return <p>{error.message}</p>
   }
   if (data) {
-    const { formattedName, images, title, description, serie } = data.nendoroid;
+    const { formattedName, images, title, description, series, releaseDate } = data.nendoroid;
     return (
       <div style={styles.root}>
 
@@ -113,6 +111,7 @@ function Nendoroid() {
         <Spacer spacing={2} />
 
         <Typography text={title} type="h3" textAlign="center" />
+        <Typography text={format(new Date(releaseDate), 'yyyy/MM')} type="h3" textAlign="center" />
 
         <Spacer spacing={1} />
         <div style={{ width: "900px", alignSelf: "center" }}>
@@ -136,7 +135,7 @@ function Nendoroid() {
 
         <Spacer spacing={3} />
 
-        <RelatedProduct nendoroids={serie.nendoroids} />
+        <RelatedProduct nendoroids={series.nendoroids} />
 
         <Spacer spacing={3} />
 

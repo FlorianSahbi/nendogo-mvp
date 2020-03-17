@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^7.1.2",
     "apollo-link": "^1.2.14",
     "apollo-link-context": "^1.0.20",
+    "date-fns": "^2.14.0",
     "graphql": "^15.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

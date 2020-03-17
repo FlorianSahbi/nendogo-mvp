@@ -54,13 +54,9 @@ function Serie() {
     return (
       <Layout>
         <div style={content}>
-          <Header />
-          <Spacer spacing={3} />
           <GridLayout itemsPerRow={4} rowHeight={200} width={1280}>
             {data.serie.nendoroids.map(({ id, formattedName }) => <Button onHoverButton={(f) => setHover(f)} fill label={formattedName} path={`/nendoroid/${id}`} />)}
           </GridLayout>
-          <Spacer spacing={3} />
-          <Footer />
         </div>
       </Layout>
     );

@@ -61,11 +61,11 @@ function Header() {
   }
 
   const buttons = [
-    { label: "Nendoroids", path: "nendoroids" },
+    { label: "Nendoroids", path: "/nendoroids" },
     { label: "Series", path: "/series" },
-    { label: "Manufacturers", path: "manufacturers" },
-    { label: "Sculptors", path: "sculptors" },
-    { label: "Users", path: "users" },
+    { label: "Manufacturers", path: "/manufacturers" },
+    { label: "Sculptors", path: "/sculptors" },
+    { label: "Users", path: "/users" },
   ];
 
   return (
