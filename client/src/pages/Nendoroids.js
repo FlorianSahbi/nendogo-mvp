@@ -9,8 +9,8 @@ import { IoIosHeartEmpty, IoIosHeart } from 'react-icons/io';
 import Typography from '../components/Typography';
 
 const GET_NENDOROIDS = gql`
-  query GetNendoroids($min: Int, $max: Int) {
-    nendoroids(sort: "number", where: { number_gte: $min, number_lte: $max }) {
+  query GetNendoroids($min: Int, $max: Int, $start: Int) {
+    nendoroids(start: $start, sort: "number", where: { number_gte: $min, number_lte: $max }) {
       formattedName
       id
       number
@@ -103,8 +103,8 @@ const Filters = () => {
 
 function Nendoroids() {
   console.log(("Nendoroids"))
-  const { data, loading, error } = useQuery(GET_NENDOROIDS, {
-    variables: { "min": parseInt(localStorage.getItem("nendogo_min")) || 1201, "max": parseInt(localStorage.getItem("nendogo_max")) || 1300 }
+  const { data, loading, error, fetchMore } = useQuery(GET_NENDOROIDS, {
+    variables: { "start": 0, "min": parseInt(localStorage.getItem("nendogo_min")) || 0, "max": parseInt(localStorage.getItem("nendogo_max")) || 1300 }
   });
   const styles = {
     root: {
@@ -139,6 +139,14 @@ function Nendoroids() {
           <GridLayout itemsPerRow={5} rowHeight={350}>
             {data.nendoroids.map(({ id, formattedName, images, number }) => <Card id={id} formattedName={formattedName} number={number} images={images} path={`/nendoroid/${id}`} fill />)}
           </GridLayout>
+          <div onClick={() => fetchMore({
+            variables: { start: data.nendoroids.length }, updateQuery: (prev, { fetchMoreResult }) => {
+              if (!fetchMoreResult) return prev;
+              return Object.assign({}, prev, {
+                nendoroids: [...prev.nendoroids, ...fetchMoreResult.nendoroids]
+              })
+            }
+          })}>More</div>
         </div>
       </Layout>
     );
