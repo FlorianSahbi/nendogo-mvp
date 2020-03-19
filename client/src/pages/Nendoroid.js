@@ -18,6 +18,7 @@ const GET_NENDOROIDS = gql`
       images
       range
       title
+      url
       description
       releaseDate
       series {
@@ -98,7 +99,7 @@ function Nendoroid() {
     return <p>{error.message}</p>
   }
   if (data) {
-    const { formattedName, images, title, description, series, releaseDate } = data.nendoroid;
+    const { formattedName, images, title, description, series, releaseDate, url } = data.nendoroid;
     return (
       <div style={styles.root}>
 
@@ -112,6 +113,7 @@ function Nendoroid() {
 
         <Typography text={title} type="h3" textAlign="center" />
         <Typography text={format(new Date(releaseDate), 'yyyy/MM')} type="h3" textAlign="center" />
+        <Typography text={url} type="body1" textAlign="center" />
 
         <Spacer spacing={1} />
         <div style={{ width: "900px", alignSelf: "center" }}>
