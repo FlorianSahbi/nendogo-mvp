@@ -7,30 +7,7 @@ import Spacer from "../components/Spacer";
 import Footer from "../components/Footer";
 import Card from "../components/Card";
 import { format } from 'date-fns'
-
-const GET_NENDOROIDS = gql`
-  query GetNendoroid($chu: ID!) {
-    nendoroid(id: $chu) {
-      formattedName
-      id
-      number
-      price
-      images
-      range
-      title
-      url
-      description
-      releaseDate
-      series {
-        nendoroids {
-          id
-          formattedName
-          images
-        }
-      }
-    }
-  }
-`;
+import { GET_NENDOROIDS } from "../graphql/nendoroid";
 
 const RelatedProduct = ({ nendoroids }) => {
   const params = useParams();

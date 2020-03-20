@@ -4,15 +4,7 @@ import { useParams } from "react-router-dom";
 import Button from "../components/Button";
 import Loader from "../components/Loader";
 import GridLayout from "../components/GridLayout";
-
-const GET_NENDOROIDS = gql`
-  query Nendo($chu: String) {
-    sculptors(where: { name: $chu }) {
-      id
-      name
-    }
-  }
-`;
+import { GET_NENDOROIDS } from "../graphql/sculptor";
 
 function Sculptor() {
   console.log(("Sculptor"))

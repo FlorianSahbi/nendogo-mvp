@@ -7,19 +7,7 @@ import Card from "../components/Card";
 import GridLayout from "../components/GridLayout";
 import { IoIosHeartEmpty, IoIosHeart } from 'react-icons/io';
 import Typography from '../components/Typography';
-
-const GET_NENDOROIDS = gql`
-  query GetNendoroids($min: Int, $max: Int, $start: Int) {
-    nendoroids(start: $start, sort: "number", where: { number_gte: $min, number_lte: $max }) {
-      formattedName
-      id
-      number
-      price
-      images
-      range
-    }
-  }
-`;
+import { GET_NENDOROIDS } from "../graphql/nendoroids";
 
 function LikeButton({ isLiked = false }) {
   const [liked, setLiked] = useState(isLiked)
@@ -135,8 +123,8 @@ function Nendoroids() {
     return (
       <Layout>
         <div style={styles.root}>
-          <Filters />
-          <GridLayout itemsPerRow={5} rowHeight={350}>
+          {/* <Filters /> */}
+          <GridLayout itemsPerRow={5} rowHeight={200}>
             {data.nendoroids.map(({ id, formattedName, images, number }) => <Card id={id} formattedName={formattedName} number={number} images={images} path={`/nendoroid/${id}`} fill />)}
           </GridLayout>
           <div onClick={() => fetchMore({

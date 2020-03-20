@@ -1,40 +1,10 @@
 import React from 'react';
-import { useQuery, gql } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { useParams } from "react-router-dom";
 import Button from "../components/Button";
-import Image from "../components/Image";
 import Loader from "../components/Loader";
 import Card from "../components/Card";
-
-const GET_USER = gql`
-  query GetUser($id: ID!) {
-    user(id: $id) {
-      id
-      email
-      username
-      profilePicture {
-        url
-      }
-      interactions {
-        nendoroid {
-          images
-          formattedName
-          id
-        }
-      }
-    }
-  }
-`;
-
-const GET_ME = gql`
-  query GetMe {
-    me {
-      id
-      email
-      username
-    }
-  }
-`;
+import { GET_USER, GET_ME } from "../graphql/user";
 
 function User() {
   console.log(("User"))

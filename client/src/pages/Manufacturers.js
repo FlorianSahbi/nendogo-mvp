@@ -5,16 +5,7 @@ import Layout from "../components/Layout";
 import GridLayout from "../components/GridLayout";
 import Loader from "../components/Loader";
 import Error from "../components/Error";
-
-
-const GET_MANUFACTURERS = gql`
-  query {
-    manufacturers {
-      id
-      name
-    }
-  }
-`;
+import { GET_MANUFACTURERS } from "../graphql/manufacturers";
 
 function Manufacturers() {
   console.log(("Manufacturers"))

@@ -36,7 +36,7 @@ const RoundPicture = ({ src, alt, size = "m" }) => {
   }
   return (
     <div style={styles[size]}>
-      <img style={styles.image} src={src} alt={alt} />
+      <img loading="lazy" style={styles.image} src={src} alt={alt} />
     </div>
   )
 }

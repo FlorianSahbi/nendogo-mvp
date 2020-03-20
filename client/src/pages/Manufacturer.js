@@ -1,18 +1,10 @@
 import React from 'react';
-import { useQuery, gql } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { useParams } from "react-router-dom";
 import Button from "../components/Button";
 import Loader from "../components/Loader";
 import Layout from "../components/Layout";
-
-const GET_NENDOROIDS = gql`
-  query Nendo($chu: String) {
-    manufacturers(where: { name: $chu }) {
-      id
-      name
-    }
-  }
-`;
+import { GET_NENDOROIDS } from "../graphql/manufacturer";
 
 function Manufacturer() {
   console.log(("Manufacturer"))

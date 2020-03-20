@@ -4,25 +4,11 @@ import { useParams } from "react-router-dom";
 import Button from "../components/Button";
 import Loader from "../components/Loader";
 import Error from "../components/Error";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import Spacer from "../components/Spacer";
+import Card from "../components/Card";
 import Layout from "../components/Layout";
 import GridLayout from "../components/GridLayout";
+import { GET_NENDOROIDS } from "../graphql/serie";
 
-const GET_NENDOROIDS = gql`
-  query Nendo($id: ID!) {
-    serie(id: $id) {
-      id
-      name
-      nendoroids {
-        formattedName
-        images
-        id
-      }
-    }
-  }
-`;
 
 function Serie() {
   console.log(("Serie"))
@@ -55,7 +41,7 @@ function Serie() {
       <Layout>
         <div style={content}>
           <GridLayout itemsPerRow={4} rowHeight={200} width={1280}>
-            {data.serie.nendoroids.map(({ id, formattedName }) => <Button onHoverButton={(f) => setHover(f)} fill label={formattedName} path={`/nendoroid/${id}`} />)}
+            {data.serie.nendoroids.map(({ id, formattedName, images, number }) => <Card id={id} images={images} number={number} formattedName={formattedName} path={`/nendoroid/${id}`} />)}
           </GridLayout>
         </div>
       </Layout>

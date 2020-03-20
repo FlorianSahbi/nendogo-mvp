@@ -18,6 +18,7 @@ function Users() {
       alignItems: "center",
       padding: "10px",
       height: "100%",
+      minHeight: "40vh",
       width: "100%",
       backgroundColor: "#121212",
     },
