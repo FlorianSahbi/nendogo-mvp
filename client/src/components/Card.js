@@ -61,7 +61,7 @@ const Foreground = ({ name, number, isActive = false }) => {
   )
 }
 
-function Card({ id, images, formattedName, path, number }) {
+function Card({ id, images, formattedName, path, number, loading }) {
   const history = useHistory();
   const [isActive, setIsActive] = useState(false);
   const styles = {
@@ -74,18 +74,33 @@ function Card({ id, images, formattedName, path, number }) {
       position: "relative",
       overflow: "hidden",
     },
+    loading: {
+      zIndex: 1,
+      cursor: "pointer",
+      height: "100%",
+      width: "100%",
+      backgroundColor: "#1F1F1F",
+      position: "relative",
+      overflow: "hidden",
+    },
   }
-  return (
-    <div
-      onMouseEnter={() => setIsActive(true)}
-      onMouseLeave={() => setIsActive(false)}
-      onClick={() => history.push(path)}
-      style={styles.root}
-    >
-      <Foreground name={formattedName} number={number} isActive={isActive} />
-      <Image src={images[0]} alt={`${id}-card`} />
-    </div>
-  )
+  if (loading) {
+    return (
+      <div style={styles.loading} />
+    )
+  } else {
+    return (
+      <div
+        onMouseEnter={() => setIsActive(true)}
+        onMouseLeave={() => setIsActive(false)}
+        onClick={() => history.push(path)}
+        style={styles.root}
+      >
+        <Foreground name={formattedName} number={number} isActive={isActive} />
+        <Image src={images[0]} alt={`${id}-card`} />
+      </div>
+    )
+  }
 }
 
 export default Card;
