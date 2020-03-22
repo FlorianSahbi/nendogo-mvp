@@ -8,6 +8,23 @@ import GridLayout from "../components/GridLayout";
 import { IoIosHeartEmpty, IoIosHeart } from 'react-icons/io';
 import Typography from '../components/Typography';
 import { GET_NENDOROIDS } from "../graphql/nendoroids";
+import { useDebouncedCallback } from 'use-debounce';
+
+function Search({ placeholder, onSearchFilter }) {
+  const [searchValue, setSearchValue] = useState(null);
+
+  const [debouncedCallback] = useDebouncedCallback((searchValue) => {
+    setSearchValue(searchValue);
+    onSearchFilter(searchValue);
+  }, 1000);
+
+  return (
+    <div>
+      <input placeholder={placeholder} onChange={(e) => debouncedCallback(e.target.value)} />
+      <p>Debounced value: {searchValue}</p>
+    </div>
+  );
+}
 
 function LikeButton({ isLiked = false }) {
   const [liked, setLiked] = useState(isLiked)
@@ -42,7 +59,7 @@ function LikeButton({ isLiked = false }) {
 }
 
 
-const Filters = () => {
+const Filters = ({ onRangeFilter }) => {
   const buttons = [
     { label: "000-100", min: 0, max: 100 },
     { label: "101-200", min: 101, max: 200 },
@@ -78,8 +95,7 @@ const Filters = () => {
   }
   const setFilter = (min, max) => {
     console.log({ min, max })
-    localStorage.setItem("nendogo_min", min);
-    localStorage.setItem("nendogo_max", max);
+    onRangeFilter([min, max]);
   }
   return (
     <div style={styles.root}>
@@ -91,9 +107,13 @@ const Filters = () => {
 
 function Nendoroids() {
   console.log(("Nendoroids"))
+  const [searchValue, setSearchValue] = useState(null);
+  const [[min, max], setRangeFilter] = useState([1201, 1300]);
+
   const { data, loading, error, fetchMore } = useQuery(GET_NENDOROIDS, {
-    variables: { "start": 0, "min": parseInt(localStorage.getItem("nendogo_min")) || 0, "max": parseInt(localStorage.getItem("nendogo_max")) || 1300 }
+    variables: { "start": 0, "min": min, "max": max, "searchValue": searchValue }
   });
+
   const styles = {
     root: {
       width: "100vw",
@@ -123,7 +143,8 @@ function Nendoroids() {
     return (
       <Layout>
         <div style={styles.root}>
-          {/* <Filters /> */}
+          <Filters onRangeFilter={setRangeFilter} />
+          <Search placeholder="Search" onSearchFilter={(v) => { setRangeFilter([0, 9999]); setSearchValue(v) }} />
           <GridLayout itemsPerRow={5} rowHeight={200}>
             {data.nendoroids.map(({ id, formattedName, images, number }) => <Card id={id} formattedName={formattedName} number={number} images={images} path={`/nendoroid/${id}`} fill />)}
           </GridLayout>
