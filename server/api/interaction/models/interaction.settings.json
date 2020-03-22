@@ -17,14 +17,10 @@
         "OWN"
       ]
     },
-    "nendoroid": {
-      "model": "nendoroid",
-      "via": "interactions"
-    },
     "user": {
+      "via": "interactions",
       "plugin": "users-permissions",
-      "model": "user",
-      "via": "interactions"
+      "model": "user"
     }
   }
 }

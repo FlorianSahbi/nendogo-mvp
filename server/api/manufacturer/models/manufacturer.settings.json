@@ -11,6 +11,10 @@
   "attributes": {
     "name": {
       "type": "string"
+    },
+    "nendoroids": {
+      "via": "manufacturer",
+      "collection": "nendoroid"
     }
   }
 }

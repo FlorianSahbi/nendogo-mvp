@@ -65,8 +65,12 @@
       "required": false
     },
     "interactions": {
-      "via": "user",
-      "collection": "interaction"
+      "collection": "interaction",
+      "via": "user"
+    },
+    "graphDomain": {
+      "type": "string",
+      "default": "null"
     }
   }
 }

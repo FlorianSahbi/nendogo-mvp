@@ -14,7 +14,7 @@
       "required": true
     },
     "nendoroids": {
-      "via": "serie",
+      "via": "series",
       "collection": "nendoroid"
     }
   }

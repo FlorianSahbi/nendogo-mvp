@@ -21,37 +21,13 @@
     "title": {
       "type": "string"
     },
-    "series": {
-      "type": "string"
-    },
-    "manufacturer": {
-      "type": "string"
-    },
-    "category": {
-      "type": "string"
-    },
     "price": {
       "type": "integer"
     },
     "specifications": {
       "type": "string"
     },
-    "sculptor": {
-      "type": "string"
-    },
-    "cooperation": {
-      "type": "string"
-    },
     "planningProduction": {
-      "type": "string"
-    },
-    "releasedBy": {
-      "type": "string"
-    },
-    "distributedBy": {
-      "type": "string"
-    },
-    "srcUrl": {
       "type": "string"
     },
     "range": {
@@ -63,13 +39,27 @@
     "images": {
       "type": "json"
     },
-    "serie": {
+    "releaseDate": {
+      "type": "datetime"
+    },
+    "series": {
       "model": "serie",
       "via": "nendoroids"
     },
-    "interactions": {
-      "via": "nendoroid",
-      "collection": "interaction"
+    "manufacturer": {
+      "model": "manufacturer",
+      "via": "nendoroids"
+    },
+    "sculptor": {
+      "model": "sculptor",
+      "via": "nendoroids"
+    },
+    "category": {
+      "model": "category",
+      "via": "nendoroids"
+    },
+    "url": {
+      "type": "string"
     }
   }
 }
