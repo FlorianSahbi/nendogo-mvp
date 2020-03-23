@@ -10,20 +10,7 @@ import { GET_USERS } from "../graphql/users";
 function Users() {
   console.log(("Users"))
   const { data, loading, error } = useQuery(GET_USERS);
-  const styles = {
-    content: {
-      position: "relative",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      padding: "10px",
-      height: "100%",
-      minHeight: "40vh",
-      width: "100%",
-      backgroundColor: "#121212",
-    },
-  }
-  const { content } = styles;
+
 
   if (loading) {
     return <Loader />
@@ -36,13 +23,11 @@ function Users() {
   if (data) {
     return (
       <Layout>
-        <div style={content}>
-          <GridLayout itemsPerRow={4} rowHeight={200} width={1280}>
-            {
-              data.users.map(({ id, username }) => <Button fill label={username} path={`/user/${id}`} />)
-            }
-          </GridLayout>
-        </div>
+        <GridLayout itemsPerRow={4} rowHeight={200} width={1280}>
+          {
+            data.users.map(({ id, username }) => <Button fill label={username} path={`/user/${id}`} />)
+          }
+        </GridLayout>
       </Layout>
     );
   }

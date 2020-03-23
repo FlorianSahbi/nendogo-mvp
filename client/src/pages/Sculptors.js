@@ -3,10 +3,7 @@ import { useQuery } from '@apollo/client';
 import Button from "../components/Button";
 import Loader from "../components/Loader";
 import Error from "../components/Error";
-import Header from "../components/Header";
 import GridLayout from "../components/GridLayout";
-import Footer from "../components/Footer";
-import Spacer from "../components/Spacer";
 import Layout from "../components/Layout";
 import { GET_SCULPTORS } from "../graphql/sculptors";
 import video1 from "../assets/video/reKill.mp4"
@@ -64,19 +61,6 @@ function Video() {
 
 function Sculptors() {
   const { data, loading, error } = useQuery(GET_SCULPTORS);
-  const styles = {
-    content: {
-      position: "relative",
-      display: "flex",
-      flexDirection: "column",
-      padding: "10px",
-      alignItems: "center",
-      height: "100%",
-      width: "100%",
-      backgroundColor: "#121212",
-    },
-  }
-  const { content } = styles;
 
   if (loading) {
     return <Loader />;
@@ -89,14 +73,14 @@ function Sculptors() {
   if (data) {
     return (
       <Layout>
-        <section style={content}>
-          {/* <Video /> */}
-          <GridLayout itemsPerRow={4} rowHeight={200} width={1280}>
-            {
-              data.sculptors.map(({ name }) => <Button label={name} fill path={`/sculptor/${name}`} />)
-            }
-          </GridLayout>
-        </section>
+
+        {/* <Video /> */}
+        <GridLayout itemsPerRow={5} rowHeight={200}>
+          {
+            data.sculptors.map(({ name }) => <Button label={name} fill path={`/sculptor/${name}`} />)
+          }
+        </GridLayout>
+
       </Layout>
     );
   }

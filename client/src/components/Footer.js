@@ -6,7 +6,6 @@ const Footer = () => {
     root: {
       height: "100px",
       borderTop: "2px solid #DF0001",
-      backgroundColor: "#121212",
       display: "flex",
       justifyContent: "center", 
       alignItems: "center",

@@ -12,7 +12,6 @@ const Loader = ({ debug, fullscreen = true }) => {
       justifyContent: "center",
       alignItems: "center",
       backgroundColor: "#121212",
-      border: "3px solid yellow",
     }
   }
   return (

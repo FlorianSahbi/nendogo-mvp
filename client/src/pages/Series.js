@@ -52,11 +52,9 @@ const Card = ({ id, name, nendoroids, path }) => {
       justifyContent: "center",
       alignItems: "center",
       flexDirection: "column",
-      // border: "2px solid blue",
     },
     nendos: {
       width: "100%",
-      // border: "2px solid blue",
       display: "flex",
       justifyContent: "center",
     }
@@ -103,21 +101,19 @@ function Series() {
   if (data) {
     return (
       <Layout>
-        <section style={content}>
-          <GridLayout itemsPerRow={4} rowHeight={200} width={1280}>
-            {
-              data.series.map(({ id, name, nendoroids }) => <Card key={id} id={id} nendoroids={nendoroids} name={name} path={`/serie/${id}`} />)
-            }
-          </GridLayout>
-          <div onClick={() => fetchMore({
-            variables: { start: data.series.length }, updateQuery: (prev, { fetchMoreResult }) => {
-              if (!fetchMoreResult) return prev;
-              return Object.assign({}, prev, {
-                series: [...prev.series, ...fetchMoreResult.series]
-              });
-            }
-          })}>More</div>
-        </section>
+        <GridLayout itemsPerRow={5} rowHeight={200}>
+          {
+            data.series.map(({ id, name, nendoroids }) => <Card key={id} id={id} nendoroids={nendoroids} name={name} path={`/serie/${id}`} />)
+          }
+        </GridLayout>
+        <div onClick={() => fetchMore({
+          variables: { start: data.series.length }, updateQuery: (prev, { fetchMoreResult }) => {
+            if (!fetchMoreResult) return prev;
+            return Object.assign({}, prev, {
+              series: [...prev.series, ...fetchMoreResult.series]
+            });
+          }
+        })}>More</div>
       </Layout>
     );
   }

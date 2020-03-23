@@ -10,19 +10,6 @@ import { GET_MANUFACTURERS } from "../graphql/manufacturers";
 function Manufacturers() {
   console.log(("Manufacturers"))
   const { data, loading, error } = useQuery(GET_MANUFACTURERS);
-  const styles = {
-    content: {
-      minHeight: "100vh",
-      width: "100vw",
-      backgroundColor: "#121212",
-      padding: "10px",
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      alignItems: "center",
-    },
-  };
-  const { content } = styles;
 
   if (loading) {
     return <Loader />
@@ -35,11 +22,9 @@ function Manufacturers() {
   if (data) {
     return (
       <Layout>
-        <div style={styles.content}>
-          <GridLayout itemsPerRow={4} rowHeight={200} width={1280}>
-            {data.manufacturers.map(({ name }) => <Button label={name} fill path={`/manufacturer/${name}`} />)}
-          </GridLayout>
-        </div>
+        <GridLayout itemsPerRow={5} rowHeight={200}>
+          {data.manufacturers.map(({ name }) => <Button label={name} fill path={`/manufacturer/${name}`} />)}
+        </GridLayout>
       </Layout>
     );
   }

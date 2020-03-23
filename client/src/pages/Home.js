@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../Reset.css';
 import { useQuery, gql } from '@apollo/client';
 import Spacer from "../components/Spacer";
 import Card from "../components/Card";
 import Typography from "../components/Typography";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 import FeaturedImage from "../components/FeaturedImage";
+import Layout from "../components/Layout";
 
 const DotIndicator = ({ onClick }) => {
   const styles = {
@@ -81,13 +80,9 @@ const Pagination = ({ element, pages }) => {
 
 function Home() {
   console.log(("Home"))
+
   return (
-    <section style={styles.root}>
-
-      <Header />
-
-      <Spacer spacing={2} />
-
+    <Layout>
       <div style={{ padding: "1rem", display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", width: "100%" }}>
         <FeaturedImage />
       </div>
@@ -102,26 +97,9 @@ function Home() {
           <Pagination element={5} pages={5} />
         </div>
       </div>
-
-      <Spacer spacing={2} />
-
-      <Footer />
-    </section>
+    </Layout>
   );
 
-}
-
-const styles = {
-  root: {
-    width: "100vw",
-    backgroundColor: "#121212",
-  },
-  list: {
-    display: "grid",
-    gridAutoRows: "auto",
-    gridTemplateColumns: "repeat(5, 1fr)",
-    gridGap: "10px",
-  },
 }
 
 export default Home;

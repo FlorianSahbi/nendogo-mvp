@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Typography from "./Typography";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const Button = ({ label, path, fill = false }) => {
   const [isActive, setIsActive] = useState(false);

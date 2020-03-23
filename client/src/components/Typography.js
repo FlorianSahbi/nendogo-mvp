@@ -1,9 +1,5 @@
 import React from "react";
-
-const palette = {
-  main: "#F0E6D1",
-  secondary: "#D9D9D9",
-}
+import { Palette } from "../components/Layout";
 
 const Typography = ({ text, type, textAlign }) => {
   const styles = {
@@ -13,7 +9,7 @@ const Typography = ({ text, type, textAlign }) => {
       fontWeight: "normal",
       fontSize: "24px",
       lineHeight: "28px",
-      color: palette.main,
+      color: Palette.dark.text.primary,
       textAlign: textAlign
     },
     body1: {
@@ -22,7 +18,7 @@ const Typography = ({ text, type, textAlign }) => {
       fontWeight: "normal",
       fontSize: "14px",
       lineHeight: "1.5rem",
-      color: palette.main,
+      color: Palette.dark.text.primary,
       textAlign: textAlign
     },
     titleNendo: {
@@ -31,7 +27,7 @@ const Typography = ({ text, type, textAlign }) => {
       fontWeight: "normal",
       fontSize: "5rem",
       lineHeight: "5rem",
-      color: palette.main,
+      color: Palette.dark.text.primary,
       textAlign: textAlign
     },
   }
