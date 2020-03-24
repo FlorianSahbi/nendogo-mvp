@@ -1,6 +1,7 @@
 import React from "react";
 import { MdClose } from 'react-icons/md';
 import { useApolloClient, gql } from "@apollo/client";
+import {Palette} from "./Layout";
 
 const AUTHENTICATE_MODAL = gql`
   query authenticateModal {
@@ -41,7 +42,7 @@ function Modal({ isOpen }) {
     modal: {
       height: "500px",
       width: "500px",
-      backgroundColor: "#121212",
+      backgroundColor: Palette["light"].elevation0,
       position: "relative",
     },
     cross: {

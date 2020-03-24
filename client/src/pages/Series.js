@@ -8,6 +8,7 @@ import Layout from "../components/Layout";
 import { GET_SERIES } from "../graphql/series";
 import { useHistory } from "react-router-dom";
 import Typography from '../components/Typography';
+import {Palette} from "../components/Layout";
 
 const RoundPicture = ({ src, alt, size = "m" }) => {
   const styles = {
@@ -80,7 +81,7 @@ function Series() {
     content: {
       minHeight: "100vh",
       width: "100vw",
-      backgroundColor: "#121212",
+      backgroundColor: Palette["light"].elevation0,
       padding: "10px",
       display: "flex",
       flexDirection: "column",

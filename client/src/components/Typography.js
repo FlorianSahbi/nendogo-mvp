@@ -9,7 +9,7 @@ const Typography = ({ text, type, textAlign }) => {
       fontWeight: "normal",
       fontSize: "24px",
       lineHeight: "28px",
-      color: Palette.dark.text.primary,
+      color: Palette["light"].text.primary,
       textAlign: textAlign
     },
     body1: {
@@ -18,7 +18,7 @@ const Typography = ({ text, type, textAlign }) => {
       fontWeight: "normal",
       fontSize: "14px",
       lineHeight: "1.5rem",
-      color: Palette.dark.text.primary,
+      color: Palette["light"].text.primary,
       textAlign: textAlign
     },
     titleNendo: {
@@ -27,7 +27,7 @@ const Typography = ({ text, type, textAlign }) => {
       fontWeight: "normal",
       fontSize: "5rem",
       lineHeight: "5rem",
-      color: Palette.dark.text.primary,
+      color: Palette["light"].text.primary,
       textAlign: textAlign
     },
   }

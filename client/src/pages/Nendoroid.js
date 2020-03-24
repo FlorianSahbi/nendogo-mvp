@@ -8,6 +8,7 @@ import Footer from "../components/Footer";
 import Card from "../components/Card";
 import { format } from 'date-fns'
 import { GET_NENDOROIDS } from "../graphql/nendoroid";
+import {Palette} from "../components/Layout";
 
 const RelatedProduct = ({ nendoroids }) => {
   const params = useParams();
@@ -36,10 +37,10 @@ function Nendoroid() {
       width: "100vw",
       display: "flex",
       flexDirection: "column",
-      backgroundColor: "#121212",
+      backgroundColor: Palette["light"].elevation0,
     },
     listWrapper: {
-      backgroundColor: "#202020",
+      backgroundColor: Palette["light"].elevation1,
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
@@ -48,7 +49,7 @@ function Nendoroid() {
     },
     list: {
       display: "flex",
-      backgroundColor: "#121212",
+      backgroundColor: Palette["light"].elevation0,
       padding: "10px",
       width: "100%",
       height: "400px",
@@ -63,7 +64,7 @@ function Nendoroid() {
       zIndex: "9",
       height: "70vh",
       width: "100%",
-      background: "linear-gradient(180deg,rgba(0,0,0,0) 65%, rgba(10,10,12,.1) 70%, #121212 90%)",
+      background: `linear-gradient(180deg,transparent 65%, #0a0a0c1a 70%, ${Palette["light"].elevation0} 90%)`,
       display: "flex",
       alignItems: "flex-end",
       justifyContent: "center",

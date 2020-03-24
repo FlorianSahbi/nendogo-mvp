@@ -8,6 +8,7 @@ import Card from "../components/Card";
 import Layout from "../components/Layout";
 import GridLayout from "../components/GridLayout";
 import { GET_NENDOROIDS } from "../graphql/serie";
+import {Palette} from "../components/Layout";
 
 
 function Serie() {
@@ -23,7 +24,7 @@ function Serie() {
       alignItems: "center",
       height: "100%",
       width: "100%",
-      backgroundColor: "#121212",
+      backgroundColor: Palette["light"].elevation0,
     },
   }
   const { content } = styles;

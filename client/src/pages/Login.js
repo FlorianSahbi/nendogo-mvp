@@ -7,6 +7,7 @@ import { LOGIN } from "../graphql/authentication";
 import FacebookLogin from "react-facebook-login";
 import Layout from "../components/Layout";
 import logo from "../logo.svg";
+import { Palette } from "../components/Layout";
 
 let users = [
   {
@@ -39,7 +40,7 @@ let inputsStyle = {
     padding: "1rem",
     border: "1px solid grey",
     outline: "unset",
-    background: "#fff"
+    background: Palette["light"].elevation1,
   }
 }
 
@@ -87,7 +88,7 @@ function Login() {
 
   return (
     <Layout header={false} footer={false}>
-      <div style={{ display: "grid", backgroundColor: "#121212", gridTemplateColumns: "1fr 1fr", height: "100vh", width: "100%" }}>
+      <div style={{ display: "grid", backgroundColor: Palette["light"].elevation0, gridTemplateColumns: "1fr 1fr", height: "100vh", width: "100%" }}>
         <div style={{ height: "100%", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
           <img src={logo} />
         </div>

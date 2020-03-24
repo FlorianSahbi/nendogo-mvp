@@ -1,6 +1,7 @@
 import React from "react";
 import logo from "../logo.svg";
 import Typography from "./Typography";
+import { Palette } from "./Layout";
 
 const Error = ({ message }) => {
   const styles = {
@@ -13,7 +14,7 @@ const Error = ({ message }) => {
       justifyContent: "center",
       alignItems: "center",
       flexDirection: "column",
-      backgroundColor: "#121212",
+      backgroundColor: Palette["light"].elevation0,
     }
   }
   return (

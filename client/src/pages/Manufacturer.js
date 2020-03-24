@@ -5,6 +5,7 @@ import Button from "../components/Button";
 import Loader from "../components/Loader";
 import Layout from "../components/Layout";
 import { GET_NENDOROIDS } from "../graphql/manufacturer";
+import {Palette} from "../components/Layout";
 
 function Manufacturer() {
   console.log(("Manufacturer"))
@@ -14,7 +15,7 @@ function Manufacturer() {
     root: {
       width: "100vw",
       minHeight: "100vh",
-      backgroundColor: "#121212",
+      backgroundColor: Palette["light"].elevation0,
     },
     list: {
       display: "grid",

@@ -5,6 +5,7 @@ import Image from "./Image";
 import Button from "./Button";
 import { useHistory } from "react-router-dom";
 import Typography from "../components/Typography";
+import {Palette} from "./Layout";
 
 function LoginButton() {
   const history = useHistory();
@@ -62,7 +63,7 @@ function Header() {
   ];
 
   return (
-    <div style={{ borderBottom: "2px solid #DF0001", }}>
+    <div style={{ borderBottom: `2px solid ${Palette["light"].secondary}`, }}>
       <div style={styles.logo}>
         <img onClick={() => history.push("/")} src={logo} alt="title" />
       </div>

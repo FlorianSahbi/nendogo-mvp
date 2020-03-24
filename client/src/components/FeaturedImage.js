@@ -1,6 +1,7 @@
 import React from "react";
 import Typography from "../components/Typography";
 import Spacer from "../components/Spacer";
+import { Palette } from "./Layout";
 
 function FeaturedImage() {
   const styles = {
@@ -9,11 +10,11 @@ function FeaturedImage() {
       height: "720px",
       minWidth: "1280px",
       minHeight: "720px",
-      backgroundColor: "#202020",
+      backgroundColor: Palette["light"].elevation1,
       padding: "1rem",
     },
     wrapper: {
-      border: "2px solid #D9D9D9",
+      border: `2px solid ${Palette["light"].text.primary}`,
       width: "100%",
       height: "100%",
     },

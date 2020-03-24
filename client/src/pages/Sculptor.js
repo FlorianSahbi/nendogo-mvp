@@ -5,6 +5,7 @@ import Button from "../components/Button";
 import Loader from "../components/Loader";
 import GridLayout from "../components/GridLayout";
 import { GET_NENDOROIDS } from "../graphql/sculptor";
+import {Palette} from "../components/Layout";
 
 function Sculptor() {
   console.log(("Sculptor"))
@@ -14,7 +15,7 @@ function Sculptor() {
     root: {
       width: "100%",
       minHeight: "100vh",
-      backgroundColor: "#121212",
+      backgroundColor: Palette["light"].elevation0,
     },
   }
   if (loading) {

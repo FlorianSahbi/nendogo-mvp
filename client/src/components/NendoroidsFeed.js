@@ -6,6 +6,7 @@ import GridLayout from "../components/GridLayout";
 import Typography from '../components/Typography';
 import { GET_NENDOROIDS } from "../graphql/nendoroids";
 import { useDebouncedCallback } from 'use-debounce';
+import { Palette } from "./Layout";
 
 const NendoroidsFeed = ({ filters }) => {
   const [searchValue, setSearchValue] = useState(null);
@@ -21,8 +22,8 @@ const NendoroidsFeed = ({ filters }) => {
         height: "100%",
         width: "160px",
         outline: "unset",
-        backgroundColor: "#1F1F1F",
-        border: "2px solid grey",
+        backgroundColor: Palette["light"].elevation1,
+        border: `1px solid ${Palette["light"].secondary}`,
         paddingLeft: "1rem",
 
         fontFamily: "Sawarabi Mincho",
@@ -30,7 +31,7 @@ const NendoroidsFeed = ({ filters }) => {
         fontWeight: "normal",
         fontSize: "14px",
         lineHeight: "1.5rem",
-        color: "#F0E6D1",
+        color: Palette["light"].text.primary,
       }
     }
     const [searchValue, setSearchValue] = useState(null);
@@ -86,22 +87,22 @@ const NendoroidsFeed = ({ filters }) => {
         root: {
           width: "100%",
           height: "100%",
-          border: "2px solid #F0E6D1",
+          border: `1px solid ${Palette["light"].secondary}`,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           cursor: "pointer",
-          backgroundColor: "#1F1F1F",
+          backgroundColor: Palette["light"].elevation1,
         },
         active: {
           width: "100%",
           height: "100%",
-          border: "2px solid #F0E6D1",
+          border: `1px solid ${Palette["light"].secondary}`,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           cursor: "pointer",
-          backgroundColor: "#1F1F1F",
+          backgroundColor: Palette["light"].elevation1,
         }
       }
 

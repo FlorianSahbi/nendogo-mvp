@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Typography from "./Typography";
 import { useHistory } from "react-router-dom";
+import { Palette } from "./Layout";
 
 const Button = ({ label, path, fill = false }) => {
   const [isActive, setIsActive] = useState(false);
@@ -10,13 +11,13 @@ const Button = ({ label, path, fill = false }) => {
       height: fill ? "100%" : "117px",
       width: fill ? "100%" : "223px",
       padding: "10px",
-      backgroundColor: "#1F1F1F",
+      backgroundColor: Palette["light"].elevation1,
       cursor: "pointer",
     },
     wrapper: {
       height: "100%",
       width: "100%",
-      border: "1px solid #D9D9D9",
+      border: `1px solid ${Palette["light"].secondary}`,
 
       display: "flex",
       justifyContent: "center",
@@ -27,8 +28,8 @@ const Button = ({ label, path, fill = false }) => {
     isActive: {
       height: "100%",
       width: "100%",
-      border: "1px solid #D9D9D9",
-      backgroundColor: " #121212",
+      border: `1px solid ${Palette["light"].secondary}`,
+      backgroundColor: Palette["light"].elevation0,
       display: "flex",
       justifyContent: "center",
       alignItems: "center",

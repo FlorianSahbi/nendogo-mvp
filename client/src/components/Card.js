@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import Typography from "../components/Typography";
+import {Palette} from "./Layout";
 
 const Image = ({ src, alt }) => {
   const styles = {
@@ -33,7 +34,7 @@ const Foreground = ({ name, number, isActive = false }) => {
       position: "absolute",
       height: "100%",
       width: "100%",
-      backgroundColor: "rgba(0, 0, 0, .5)",
+      backgroundColor: "rgba(255, 255, 255, .5)",
       transition: "opacity 0.2s ease",
       zIndex: "1",
       opacity: "0",
@@ -46,7 +47,7 @@ const Foreground = ({ name, number, isActive = false }) => {
       position: "absolute",
       height: "100%",
       width: "100%",
-      backgroundColor: "rgba(0, 0, 0, .5)",
+      backgroundColor: "rgba(255, 255, 255, .5)",
       transition: "opacity 0.2s ease",
       backdropFilter: "blur(5px)",
       zIndex: "1",
@@ -70,7 +71,7 @@ function Card({ id, images, formattedName, path, number, loading }) {
       cursor: "pointer",
       height: "100%",
       width: "100%",
-      backgroundColor: "#1F1F1F",
+      backgroundColor: Palette["light"].elevation1,
       position: "relative",
       overflow: "hidden",
     },
@@ -79,7 +80,7 @@ function Card({ id, images, formattedName, path, number, loading }) {
       cursor: "pointer",
       height: "100%",
       width: "100%",
-      backgroundColor: "#1F1F1F",
+      backgroundColor: Palette["light"].elevation1,
       position: "relative",
       overflow: "hidden",
     },

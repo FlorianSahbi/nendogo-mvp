@@ -3,19 +3,22 @@ import Header from "./Header";
 import Footer from "./Footer";
 
 export const Palette = {
-  dark: {
+  light: {
     text: {
       primary: "#F0E6D1",
     },
     secondary: "#DF0001",
     elevation0: "#121212",
+    elevation1: "#1F1F1F",
   },
-  light: {
+  dark: {
     text: {
-      primary: "#D9D9D9",
+      primary: "#1e2328",
+      // primary: "#D9D9D9",
     },
-    secondary: "#DF0001",
-    elevation0: "#121212",
+    secondary: "#002598",
+    elevation0: "#F6F6F6",
+    elevation1: "#E8E9EA",
   }
 }
 
@@ -26,7 +29,7 @@ function Layout({ children, header = true, footer = true }) {
       width: "100%",
       height: "auto",
       boxSizing: "border-box",
-      backgroundColor: Palette.dark.elevation0,
+      backgroundColor: Palette["light"].elevation0,
       // backgroundColor: "darkgrey"
     }
   }

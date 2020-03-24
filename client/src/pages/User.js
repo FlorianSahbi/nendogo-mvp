@@ -5,6 +5,7 @@ import Button from "../components/Button";
 import Loader from "../components/Loader";
 import Card from "../components/Card";
 import { GET_USER, GET_ME } from "../graphql/user";
+import {Palette} from "../components/Layout";
 
 function User() {
   console.log(("User"))
@@ -16,7 +17,7 @@ function User() {
     root: {
       width: "100vw",
       minHeight: "100vh",
-      backgroundColor: "#121212",
+      backgroundColor: Palette["light"].elevation0,
     },
   }
   if (loading) {

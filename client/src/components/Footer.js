@@ -1,11 +1,12 @@
 import React from "react";
 import Typography from "./Typography";
+import {Palette} from "./Layout";
 
 const Footer = () => {
   const styles = {
     root: {
       height: "100px",
-      borderTop: "2px solid #DF0001",
+      borderTop: `2px solid ${Palette["light"].secondary}`,
       display: "flex",
       justifyContent: "center", 
       alignItems: "center",

@@ -1,5 +1,6 @@
 import React from "react";
 import logo from "../logo.svg";
+import {Palette} from "./Layout";
 
 const Loader = ({ debug, fullscreen = true }) => {
   const styles = {
@@ -11,7 +12,7 @@ const Loader = ({ debug, fullscreen = true }) => {
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
-      backgroundColor: "#121212",
+      backgroundColor: Palette["light"].elevation0,
     }
   }
   return (
