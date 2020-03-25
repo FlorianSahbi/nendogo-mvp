@@ -1,5 +1,5 @@
 import React from "react";
-import {Palette} from "./Layout";
+import { Palette } from "./Layout";
 
 const Image = ({ src, alt, round = false, size }) => {
   const styles = {
@@ -8,7 +8,7 @@ const Image = ({ src, alt, round = false, size }) => {
       width: round ? `${size}px` : "100%",
       borderRadius: round ? "50%" : "",
       backgroundColor: Palette["light"].elevation1,
-      border: "5px solid #D9D9D9",
+      border: `5px solid ${Palette["light"].secondary}`,
     },
     image: {
       height: "100%",

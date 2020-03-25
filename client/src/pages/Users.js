@@ -25,7 +25,7 @@ function Users() {
       <Layout>
         <GridLayout itemsPerRow={4} rowHeight={200} width={1280}>
           {
-            data.users.map(({ id, username }) => <Button fill label={username} path={`/user/${id}`} />)
+            data.users.map(({ id, username }) => <Button key={id} fill label={username} path={`/user/${id}`} />)
           }
         </GridLayout>
       </Layout>

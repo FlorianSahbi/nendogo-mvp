@@ -90,7 +90,7 @@ function Login() {
     <Layout header={false} footer={false}>
       <div style={{ display: "grid", backgroundColor: Palette["light"].elevation0, gridTemplateColumns: "1fr 1fr", height: "100vh", width: "100%" }}>
         <div style={{ height: "100%", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
-          <img src={logo} />
+          <img src={logo} alt="logo-site" />
         </div>
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
           <form style={{ display: "grid", gridTemplateRows: "1fr 1fr 1fr", gap: ".5rem" }} onSubmit={handleSubmit(onSubmit)}>

@@ -50,7 +50,7 @@ function User() {
           } */}
           <div style={{ display: 'grid', gridTemplateColumns: "repeat(5, 1fr)" }}>
 
-            {data.user.interactions.map(({ nendoroid: { id, formattedName, images } }) => <Card interactions={[]} id={id} formattedName={formattedName} images={images} path={`nendoroid/${id}`} />)}
+            {data.user.interactions.map(({ nendoroid: { id, formattedName, images } }) => <Card key={id} interactions={[]} id={id} formattedName={formattedName} images={images} path={`nendoroid/${id}`} />)}
           </div>
 
           <Button label={data.user.username || data.me.username} />

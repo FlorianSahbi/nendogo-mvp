@@ -34,7 +34,6 @@ const NendoroidsFeed = ({ filters }) => {
         color: Palette["light"].text.primary,
       }
     }
-    const [searchValue, setSearchValue] = useState(null);
 
     const [debouncedCallback] = useDebouncedCallback((searchValue) => {
       onSearchFilter(searchValue);
@@ -47,20 +46,20 @@ const NendoroidsFeed = ({ filters }) => {
 
   const Filters = ({ onRangeFilter }) => {
     const buttons = [
-      { label: "000-100", min: 0, max: 100 },
-      { label: "101-200", min: 101, max: 200 },
-      { label: "201-300", min: 201, max: 300 },
-      { label: "301-400", min: 301, max: 400 },
-      { label: "401-500", min: 401, max: 500 },
-      { label: "501-600", min: 501, max: 600 },
-      { label: "601-700", min: 601, max: 700 },
-      { label: "701-800", min: 701, max: 800 },
-      { label: "801-900", min: 801, max: 900 },
-      { label: "901-1000", min: 901, max: 1000 },
-      { label: "1001-1100", min: 1001, max: 1100 },
-      { label: "1101-1200", min: 1101, max: 1200 },
-      { label: "1201-1300", min: 1201, max: 1300 },
-      { label: "All", min: 0, max: 9999 },
+      { id: 0, label: "000-100", min: 0, max: 100 },
+      { id: 1, label: "101-200", min: 101, max: 200 },
+      { id: 2, label: "201-300", min: 201, max: 300 },
+      { id: 3, label: "301-400", min: 301, max: 400 },
+      { id: 4, label: "401-500", min: 401, max: 500 },
+      { id: 5, label: "501-600", min: 501, max: 600 },
+      { id: 6, label: "601-700", min: 601, max: 700 },
+      { id: 7, label: "701-800", min: 701, max: 800 },
+      { id: 8, label: "801-900", min: 801, max: 900 },
+      { id: 9, label: "901-1000", min: 901, max: 1000 },
+      { id: 10, label: "1001-1100", min: 1001, max: 1100 },
+      { id: 11, label: "1101-1200", min: 1101, max: 1200 },
+      { id: 12, label: "1201-1300", min: 1201, max: 1300 },
+      { id: 13, label: "All", min: 0, max: 9999 },
     ]
 
     const styles = {
@@ -81,7 +80,6 @@ const NendoroidsFeed = ({ filters }) => {
 
     const Filter = ({ label, onClick }) => {
       const [onHover, setOnHover] = useState(false);
-      const [isActive, setIsActive] = useState(false);
 
       const styles = {
         root: {
@@ -116,16 +114,15 @@ const NendoroidsFeed = ({ filters }) => {
 
     return (
       <div style={styles.root}>
-        {buttons.map(({ label, min, max }) => <Filter label={label} onClick={() => setFilter(min, max)} />)}
+        {buttons.map(({ id, label, min, max }) => <Filter key={`${id}-${label}-filter`} label={label} onClick={() => setFilter(min, max)} />)}
       </div>
     )
   }
 
   const RenderSkeleton = ({ number = 20 }) => {
     let skeletons = [];
-    const skeleton = <Card loading />;
     for (let i = 0; i < number; i++) {
-      skeletons = [...skeletons, skeleton]
+      skeletons = [...skeletons, <Card key={Math.random()} loading />]
     }
     return (
       <>
@@ -136,7 +133,7 @@ const NendoroidsFeed = ({ filters }) => {
 
   const RenderCards = () => {
     return (
-      data.nendoroids.map(({ id, formattedName, images, number }) => <Card id={id} formattedName={formattedName} number={number} images={images} path={`/nendoroid/${id}`} fill />)
+      data.nendoroids.map(({ id, formattedName, images, number }) => <Card key={id} id={id} formattedName={formattedName} number={number} images={images} path={`/nendoroid/${id}`} fill />)
     )
   }
 
@@ -154,7 +151,7 @@ const NendoroidsFeed = ({ filters }) => {
           </div>
         }
         <GridLayout itemsPerRow={5} rowHeight={200}>
-          {loading && <RenderSkeleton />}
+          {loading && <RenderSkeleton key={"idk"} />}
           {!loading && <RenderCards />}
         </GridLayout>
         <div onClick={() => fetchMore({

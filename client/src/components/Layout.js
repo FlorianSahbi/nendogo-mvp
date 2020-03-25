@@ -7,18 +7,19 @@ export const Palette = {
     text: {
       primary: "#F0E6D1",
     },
-    secondary: "#DF0001",
+    secondary: "#F0E6D1",
     elevation0: "#121212",
     elevation1: "#1F1F1F",
+    transparent: "#00000080",
   },
   dark: {
     text: {
       primary: "#1e2328",
-      // primary: "#D9D9D9",
     },
     secondary: "#002598",
     elevation0: "#F6F6F6",
     elevation1: "#E8E9EA",
+    transparent: "#ffffff80",
   }
 }
 

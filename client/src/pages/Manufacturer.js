@@ -35,7 +35,7 @@ function Manufacturer() {
       <Layout>
         <div style={styles.root}>
           <div style={styles.list}>
-            {data.manufacturers.map(({ name }) => <Button label={name} />)}
+            {data.manufacturers.map(({ id, name }) => <Button key={id} label={name} />)}
           </div>
         </div>
       </Layout>

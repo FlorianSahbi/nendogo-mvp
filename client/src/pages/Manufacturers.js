@@ -1,5 +1,5 @@
 import React from 'react';
-import { useQuery, gql } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import Button from "../components/Button";
 import Layout from "../components/Layout";
 import GridLayout from "../components/GridLayout";
@@ -23,7 +23,7 @@ function Manufacturers() {
     return (
       <Layout>
         <GridLayout itemsPerRow={5} rowHeight={200}>
-          {data.manufacturers.map(({ name }) => <Button label={name} fill path={`/manufacturer/${name}`} />)}
+          {data.manufacturers.map(({ id, name }) => <Button key={id} label={name} fill path={`/manufacturer/${name}`} />)}
         </GridLayout>
       </Layout>
     );

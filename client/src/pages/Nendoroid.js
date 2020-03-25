@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useQuery, gql } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { useParams } from "react-router-dom";
 import Typography from "../components/Typography";
 import Loader from "../components/Loader";
@@ -8,7 +8,7 @@ import Footer from "../components/Footer";
 import Card from "../components/Card";
 import { format } from 'date-fns'
 import { GET_NENDOROIDS } from "../graphql/nendoroid";
-import {Palette} from "../components/Layout";
+import { Palette } from "../components/Layout";
 
 const RelatedProduct = ({ nendoroids }) => {
   const params = useParams();
@@ -77,7 +77,7 @@ function Nendoroid() {
     return <p>{error.message}</p>
   }
   if (data) {
-    const { formattedName, images, title, description, series, releaseDate, url } = data.nendoroid;
+    const { id, formattedName, images, title, description, series, releaseDate, url } = data.nendoroid;
     return (
       <div style={styles.root}>
 
@@ -95,7 +95,7 @@ function Nendoroid() {
 
         <Spacer spacing={1} />
         <div style={{ width: "900px", alignSelf: "center" }}>
-          {description.map(decr => <Typography text={decr} type="body1" textAlign="center" />)}
+          {description.map(decr => <Typography key={`${Math.random()}-description-nendoroid`} text={decr} type="body1" textAlign="center" />)}
         </div>
 
         <Spacer spacing={2} />
@@ -105,7 +105,7 @@ function Nendoroid() {
           <div style={styles.list}>
             {images.map(i => {
               return (
-                <div style={{ height: "100%", minWidth: "19vw", padding: "1rem" }}>
+                <div key={`${Math.random()}-images-nendoroids`} style={{ height: "100%", minWidth: "19vw", padding: "1rem" }}>
                   <img style={{ height: "100%", width: "100%", objectFit: "cover" }} src={i} alt={formattedName} />
                 </div>
               )

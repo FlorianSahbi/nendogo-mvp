@@ -1,5 +1,5 @@
 import React from 'react';
-import { useQuery, gql } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { useParams } from "react-router-dom";
 import Button from "../components/Button";
 import Loader from "../components/Loader";
@@ -29,7 +29,7 @@ function Sculptor() {
       <div style={styles.root}>
         <GridLayout itemsPerRow={4} rowHeight={200} width={1280}>
           {
-            data.sculptors.map(({ name }) => <Button label={name} />)
+            data.sculptors.map(({ id, name }) => <Button key={id} label={name} />)
           }
         </GridLayout>
       </div>

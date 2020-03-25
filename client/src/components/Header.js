@@ -5,7 +5,7 @@ import Image from "./Image";
 import Button from "./Button";
 import { useHistory } from "react-router-dom";
 import Typography from "../components/Typography";
-import {Palette} from "./Layout";
+import { Palette } from "./Layout";
 
 function LoginButton() {
   const history = useHistory();
@@ -55,11 +55,11 @@ function Header() {
   }
 
   const buttons = [
-    { label: "Nendoroids", path: "/nendoroids" },
-    { label: "Series", path: "/series" },
-    { label: "Manufacturers", path: "/manufacturers" },
-    { label: "Sculptors", path: "/sculptors" },
-    { label: "Users", path: "/users" },
+    { id: 0, label: "Nendoroids", path: "/nendoroids" },
+    { id: 1, label: "Series", path: "/series" },
+    { id: 2, label: "Manufacturers", path: "/manufacturers" },
+    { id: 3, label: "Sculptors", path: "/sculptors" },
+    { id: 4, label: "Users", path: "/users" },
   ];
 
   return (
@@ -95,7 +95,7 @@ function Header() {
 
       <div style={styles.buttonsWrapper}>
         <div style={styles.buttons}>
-          {buttons.map(({ label, path }) => <Button label={label} path={path} />)}
+          {buttons.map(({ id, label, path }) => <Button key={`${id}-${label}-menu`} label={label} path={path} />)}
         </div>
       </div>
       <Spacer spacing={5} />

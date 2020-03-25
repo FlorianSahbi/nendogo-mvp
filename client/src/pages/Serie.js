@@ -1,20 +1,18 @@
-import React, { useState } from 'react';
-import { useQuery, gql } from '@apollo/client';
+import React from 'react';
+import { useQuery } from '@apollo/client';
 import { useParams } from "react-router-dom";
-import Button from "../components/Button";
 import Loader from "../components/Loader";
 import Error from "../components/Error";
 import Card from "../components/Card";
 import Layout from "../components/Layout";
 import GridLayout from "../components/GridLayout";
 import { GET_NENDOROIDS } from "../graphql/serie";
-import {Palette} from "../components/Layout";
+import { Palette } from "../components/Layout";
 
 
 function Serie() {
   console.log(("Serie"))
   const params = useParams();
-  const [hover, setHover] = useState(null);
   const { data, loading, error } = useQuery(GET_NENDOROIDS, { variables: { id: params.id } });
   const styles = {
     content: {
@@ -42,7 +40,7 @@ function Serie() {
       <Layout>
         <div style={content}>
           <GridLayout itemsPerRow={4} rowHeight={200} width={1280}>
-            {data.serie.nendoroids.map(({ id, formattedName, images, number }) => <Card id={id} images={images} number={number} formattedName={formattedName} path={`/nendoroid/${id}`} />)}
+            {data.serie.nendoroids.map(({ id, formattedName, images, number }) => <Card key={id} id={id} images={images} number={number} formattedName={formattedName} path={`/nendoroid/${id}`} />)}
           </GridLayout>
         </div>
       </Layout>

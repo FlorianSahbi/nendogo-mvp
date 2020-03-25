@@ -8,7 +8,6 @@ import Layout from "../components/Layout";
 import { GET_SERIES } from "../graphql/series";
 import { useHistory } from "react-router-dom";
 import Typography from '../components/Typography';
-import {Palette} from "../components/Layout";
 
 const RoundPicture = ({ src, alt, size = "m" }) => {
   const styles = {
@@ -66,7 +65,7 @@ const Card = ({ id, name, nendoroids, path }) => {
       <Typography text={nendoroids.length} type="body1" textAlign="center" />
       <Spacer direction="vertical" spacing={1} />
       <div style={styles.nendos}>
-        {nendoroids.slice(0, 5).map(({ images }) => <RoundPicture src={images[0]} alt={`${id}-image`} size="l" />)}
+        {nendoroids.slice(0, 5).map(({ images }) => <RoundPicture key={`${Math.random()}-round-picture`} src={images[0]} alt={`${id}-image`} size="l" />)}
       </div>
     </div>
   )
@@ -77,19 +76,6 @@ function Series() {
   let { data, loading, error, fetchMore } = useQuery(GET_SERIES, {
     start: 0,
   });
-  const styles = {
-    content: {
-      minHeight: "100vh",
-      width: "100vw",
-      backgroundColor: Palette["light"].elevation0,
-      padding: "10px",
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      alignItems: "center",
-    },
-  };
-  const { content } = styles;
 
   if (loading) {
     return <Loader />
