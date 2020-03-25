@@ -5,9 +5,11 @@ import Button from "../components/Button";
 import Loader from "../components/Loader";
 import Layout from "../components/Layout";
 import { GET_NENDOROIDS } from "../graphql/manufacturer";
-import {Palette} from "../components/Layout";
+import { Palette } from "../components/Layout";
+import { Theme } from "../App";
 
 function Manufacturer() {
+  const theme = Theme.useContainer();
   console.log(("Manufacturer"))
   const params = useParams();
   const { data, loading, error } = useQuery(GET_NENDOROIDS, { variables: { chu: params.manufacturerName } });
@@ -15,7 +17,7 @@ function Manufacturer() {
     root: {
       width: "100vw",
       minHeight: "100vh",
-      backgroundColor: Palette["light"].elevation0,
+      backgroundColor: Palette[theme.theme].elevation0,
     },
     list: {
       display: "grid",

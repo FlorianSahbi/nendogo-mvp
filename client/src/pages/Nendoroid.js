@@ -6,9 +6,11 @@ import Loader from "../components/Loader";
 import Spacer from "../components/Spacer";
 import Footer from "../components/Footer";
 import Card from "../components/Card";
+import Layout from "../components/Layout";
 import { format } from 'date-fns'
 import { GET_NENDOROIDS } from "../graphql/nendoroid";
 import { Palette } from "../components/Layout";
+import { Theme } from "../App";
 
 const RelatedProduct = ({ nendoroids }) => {
   const params = useParams();
@@ -21,6 +23,7 @@ const RelatedProduct = ({ nendoroids }) => {
 }
 
 function Nendoroid() {
+  const theme = Theme.useContainer();
   console.log(("Nendoroid"))
   const params = useParams();
 
@@ -37,10 +40,10 @@ function Nendoroid() {
       width: "100vw",
       display: "flex",
       flexDirection: "column",
-      backgroundColor: Palette["light"].elevation0,
+      backgroundColor: Palette[theme.theme].elevation0,
     },
     listWrapper: {
-      backgroundColor: Palette["light"].elevation1,
+      backgroundColor: Palette[theme.theme].elevation1,
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
@@ -49,7 +52,7 @@ function Nendoroid() {
     },
     list: {
       display: "flex",
-      backgroundColor: Palette["light"].elevation0,
+      backgroundColor: Palette[theme.theme].elevation0,
       padding: "10px",
       width: "100%",
       height: "400px",
@@ -64,7 +67,7 @@ function Nendoroid() {
       zIndex: "9",
       height: "70vh",
       width: "100%",
-      background: `linear-gradient(180deg,transparent 65%, #0a0a0c1a 70%, ${Palette["light"].elevation0} 90%)`,
+      background: `linear-gradient(180deg,transparent 65%, #0a0a0c1a 70%, ${Palette[theme.theme].elevation0} 90%)`,
       display: "flex",
       alignItems: "flex-end",
       justifyContent: "center",
@@ -77,8 +80,9 @@ function Nendoroid() {
     return <p>{error.message}</p>
   }
   if (data) {
-    const { id, formattedName, images, title, description, series, releaseDate, url } = data.nendoroid;
+    const { formattedName, images, title, description, series, releaseDate, url } = data.nendoroid;
     return (
+      <Layout header={false}>
       <div style={styles.root}>
 
         <div style={styles.preview}>
@@ -117,11 +121,8 @@ function Nendoroid() {
 
         <RelatedProduct nendoroids={series.nendoroids} />
 
-        <Spacer spacing={3} />
-
-        <Footer />
-
       </div>
+      </Layout>
     );
   }
 }

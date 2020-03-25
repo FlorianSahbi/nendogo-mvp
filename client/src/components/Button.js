@@ -2,22 +2,25 @@ import React, { useState } from "react";
 import Typography from "./Typography";
 import { useHistory } from "react-router-dom";
 import { Palette } from "./Layout";
+import { Theme } from "../App";
+
 
 const Button = ({ label, path, fill = false }) => {
   const [isActive, setIsActive] = useState(false);
   const history = useHistory();
+  const theme = Theme.useContainer();
   const styles = {
     root: {
       height: fill ? "100%" : "117px",
       width: fill ? "100%" : "223px",
       padding: "10px",
-      backgroundColor: Palette["light"].elevation1,
+      backgroundColor: Palette[theme.theme].elevation1,
       cursor: "pointer",
     },
     wrapper: {
       height: "100%",
       width: "100%",
-      border: `1px solid ${Palette["light"].secondary}`,
+      border: `1px solid ${Palette[theme.theme].secondary}`,
 
       display: "flex",
       justifyContent: "center",
@@ -28,8 +31,8 @@ const Button = ({ label, path, fill = false }) => {
     isActive: {
       height: "100%",
       width: "100%",
-      border: `1px solid ${Palette["light"].secondary}`,
-      backgroundColor: Palette["light"].elevation0,
+      border: `1px solid ${Palette[theme.theme].secondary}`,
+      backgroundColor: Palette[theme.theme].elevation0,
       display: "flex",
       justifyContent: "center",
       alignItems: "center",

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import Typography from "../components/Typography";
-import {Palette} from "./Layout";
+import { Palette } from "./Layout";
+import { Theme } from "../App";
 
 const Image = ({ src, alt }) => {
   const styles = {
@@ -25,6 +26,7 @@ const Image = ({ src, alt }) => {
 }
 
 const Foreground = ({ name, number, isActive = false }) => {
+  const theme = Theme.useContainer();
   const styles = {
     default: {
       display: "flex",
@@ -34,7 +36,7 @@ const Foreground = ({ name, number, isActive = false }) => {
       position: "absolute",
       height: "100%",
       width: "100%",
-      backgroundColor: Palette["light"].transparent,
+      backgroundColor: Palette[theme.theme].transparent,
       transition: "opacity 0.2s ease",
       zIndex: "1",
       opacity: "0",
@@ -47,7 +49,7 @@ const Foreground = ({ name, number, isActive = false }) => {
       position: "absolute",
       height: "100%",
       width: "100%",
-      backgroundColor: Palette["light"].transparent,
+      backgroundColor: Palette[theme.theme].transparent,
       transition: "opacity 0.2s ease",
       backdropFilter: "blur(5px)",
       zIndex: "1",
@@ -63,6 +65,7 @@ const Foreground = ({ name, number, isActive = false }) => {
 }
 
 function Card({ id, images, formattedName, path, number, loading }) {
+  const theme = Theme.useContainer();
   const history = useHistory();
   const [isActive, setIsActive] = useState(false);
   const styles = {
@@ -71,7 +74,7 @@ function Card({ id, images, formattedName, path, number, loading }) {
       cursor: "pointer",
       height: "100%",
       width: "100%",
-      backgroundColor: Palette["light"].elevation1,
+      backgroundColor: Palette[theme.theme].elevation1,
       position: "relative",
       overflow: "hidden",
     },
@@ -80,7 +83,7 @@ function Card({ id, images, formattedName, path, number, loading }) {
       cursor: "pointer",
       height: "100%",
       width: "100%",
-      backgroundColor: Palette["light"].elevation1,
+      backgroundColor: Palette[theme.theme].elevation1,
       position: "relative",
       overflow: "hidden",
     },

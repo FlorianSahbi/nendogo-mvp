@@ -1,8 +1,10 @@
 import React from "react";
 import logo from "../logo.svg";
-import {Palette} from "./Layout";
+import { Palette } from "./Layout";
+import { Theme } from "../App";
 
 const Loader = ({ debug, fullscreen = true }) => {
+  const theme = Theme.useContainer();
   const styles = {
     root: {
       position: "absolute",
@@ -12,7 +14,7 @@ const Loader = ({ debug, fullscreen = true }) => {
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
-      backgroundColor: Palette["light"].elevation0,
+      backgroundColor: Palette[theme.theme].elevation0,
     }
   }
   return (

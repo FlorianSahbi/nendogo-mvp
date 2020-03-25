@@ -100,7 +100,9 @@ function Series() {
               series: [...prev.series, ...fetchMoreResult.series]
             });
           }
-        })}>More</div>
+        })}>
+          <Typography type="h3" text="More" textAlign="center" />
+        </div>
       </Layout>
     );
   }

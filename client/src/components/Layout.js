@@ -1,9 +1,12 @@
-import React from "react";
+import React from "react"
 import Header from "./Header";
 import Footer from "./Footer";
+import { Theme } from "../App";
+import { FiSun, FiMoon } from 'react-icons/fi';
+import Spacer from "../components/Spacer";
 
 export const Palette = {
-  light: {
+  dark: {
     text: {
       primary: "#F0E6D1",
     },
@@ -12,7 +15,7 @@ export const Palette = {
     elevation1: "#1F1F1F",
     transparent: "#00000080",
   },
-  dark: {
+  light: {
     text: {
       primary: "#1e2328",
     },
@@ -24,20 +27,25 @@ export const Palette = {
 }
 
 function Layout({ children, header = true, footer = true }) {
+  const theme = Theme.useContainer();
+
   const styles = {
     root: {
-      // border: "3px solid #DF0001",
       width: "100%",
       height: "auto",
       boxSizing: "border-box",
-      backgroundColor: Palette["light"].elevation0,
-      // backgroundColor: "darkgrey"
+      backgroundColor: Palette[theme.theme].elevation0,
     }
   }
 
   return (
     <React.StrictMode>
       <div style={styles.root}>
+        <div style={{ position: "absolute", top: 0, right: 0, zIndex: 999, padding: "1rem", display: "flex" }}>
+          <div onClick={theme.switchDark}><FiMoon size="1.5rem" color={Palette[theme.theme].text.primary} /></div>
+          <Spacer direction="horizontal" spacing={.5} />
+          <div onClick={theme.switchLight}><FiSun size="1.5rem" color={Palette[theme.theme].text.primary} /></div>
+        </div>
         {header && <Header />}
         {children}
         {footer && <Footer />}

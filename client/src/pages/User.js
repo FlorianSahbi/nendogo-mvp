@@ -5,9 +5,11 @@ import Button from "../components/Button";
 import Loader from "../components/Loader";
 import Card from "../components/Card";
 import { GET_USER, GET_ME } from "../graphql/user";
-import {Palette} from "../components/Layout";
+import { Palette } from "../components/Layout";
+import { Theme } from "../App";
 
 function User() {
+  const theme = Theme.useContainer();
   console.log(("User"))
   const params = useParams();
   const userId = params.id;
@@ -17,7 +19,7 @@ function User() {
     root: {
       width: "100vw",
       minHeight: "100vh",
-      backgroundColor: Palette["light"].elevation0,
+      backgroundColor: Palette[theme.theme].elevation0,
     },
   }
   if (loading) {

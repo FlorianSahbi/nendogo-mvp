@@ -2,19 +2,21 @@ import React from "react";
 import Typography from "../components/Typography";
 import Spacer from "../components/Spacer";
 import { Palette } from "./Layout";
+import { Theme } from "../App";
 
 function FeaturedImage() {
+  const theme = Theme.useContainer();
   const styles = {
     root: {
       width: "1280px",
       height: "720px",
       minWidth: "1280px",
       minHeight: "720px",
-      backgroundColor: Palette["light"].elevation1,
+      backgroundColor: Palette[theme.theme].elevation1,
       padding: "1rem",
     },
     wrapper: {
-      border: `2px solid ${Palette["light"].text.primary}`,
+      border: `2px solid ${Palette[theme.theme].text.primary}`,
       width: "100%",
       height: "100%",
     },

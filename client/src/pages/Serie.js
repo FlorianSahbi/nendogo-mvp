@@ -8,9 +8,10 @@ import Layout from "../components/Layout";
 import GridLayout from "../components/GridLayout";
 import { GET_NENDOROIDS } from "../graphql/serie";
 import { Palette } from "../components/Layout";
-
+import { Theme } from "../App";
 
 function Serie() {
+  const theme = Theme.useContainer();
   console.log(("Serie"))
   const params = useParams();
   const { data, loading, error } = useQuery(GET_NENDOROIDS, { variables: { id: params.id } });
@@ -22,7 +23,7 @@ function Serie() {
       alignItems: "center",
       height: "100%",
       width: "100%",
-      backgroundColor: Palette["light"].elevation0,
+      backgroundColor: Palette[theme.theme].elevation0,
     },
   }
   const { content } = styles;

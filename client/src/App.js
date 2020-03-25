@@ -1,9 +1,5 @@
-import React from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-} from "react-router-dom";
+import React, { useState } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "./pages/Home.js";
 import Serie from "./pages/Serie.js";
 import Nendoroid from "./pages/Nendoroid.js";
@@ -17,13 +13,25 @@ import Users from "./pages/Users.js";
 import Sculptor from "./pages/Sculptor.js";
 import Login from "./pages/Login.js";
 import Modal from "./components/Modal";
+import { createContainer } from "unstated-next"
+
+function useTheme(initialState = "dark") {
+  const [theme, setTheme] = useState(initialState);
+  const switchLight = () => {setTheme("light"); localStorage.setItem("nendogo_theme", "light")}
+  const switchDark = () => {setTheme("dark"); localStorage.setItem("nendogo_theme", "dark")}
+  return { theme, switchLight, switchDark };
+}
+
+export const Theme = createContainer(useTheme)
 
 export default function App() {
   console.log("App")
+  const theme = localStorage.getItem("nendogo_theme");
   return (
-    <>
+    <Theme.Provider initialState={theme || "dark"}>
       <Modal isOpen={!!localStorage.getItem("authenticationModal")} />
       <Router>
+
         <Switch>
 
           <Route path="/login">
@@ -70,13 +78,12 @@ export default function App() {
             <Sculptor />
           </Route>
 
-
           <Route path="/">
             <Home />
           </Route>
 
         </Switch>
       </Router>
-    </>
+    </Theme.Provider>
   );
 }

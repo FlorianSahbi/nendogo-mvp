@@ -5,9 +5,11 @@ import Button from "../components/Button";
 import Loader from "../components/Loader";
 import GridLayout from "../components/GridLayout";
 import { GET_NENDOROIDS } from "../graphql/sculptor";
-import {Palette} from "../components/Layout";
+import { Palette } from "../components/Layout";
+import { Theme } from "../App";
 
 function Sculptor() {
+  const theme = Theme.useContainer();
   console.log(("Sculptor"))
   const params = useParams();
   const { data, loading, error } = useQuery(GET_NENDOROIDS, { variables: { chu: params.sculptorName } });
@@ -15,7 +17,7 @@ function Sculptor() {
     root: {
       width: "100%",
       minHeight: "100vh",
-      backgroundColor: Palette["light"].elevation0,
+      backgroundColor: Palette[theme.theme].elevation0,
     },
   }
   if (loading) {

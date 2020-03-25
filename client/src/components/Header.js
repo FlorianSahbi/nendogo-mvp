@@ -6,6 +6,7 @@ import Button from "./Button";
 import { useHistory } from "react-router-dom";
 import Typography from "../components/Typography";
 import { Palette } from "./Layout";
+import { Theme } from "../App";
 
 function LoginButton() {
   const history = useHistory();
@@ -31,6 +32,7 @@ function LogoutButton() {
 }
 
 function Header() {
+  const theme = Theme.useContainer();
   const history = useHistory();
   const styles = {
     profile: {
@@ -63,7 +65,7 @@ function Header() {
   ];
 
   return (
-    <div style={{ borderBottom: `2px solid ${Palette["light"].secondary}`, }}>
+    <div style={{ borderBottom: `2px solid ${Palette[theme.theme].secondary}`, }}>
       <div style={styles.logo}>
         <img onClick={() => history.push("/")} src={logo} alt="title" />
       </div>

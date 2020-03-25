@@ -1,7 +1,8 @@
 import React from "react";
 import { MdClose } from 'react-icons/md';
 import { useApolloClient, gql } from "@apollo/client";
-import {Palette} from "./Layout";
+import { Palette } from "./Layout";
+import { Theme } from "../App";
 
 const AUTHENTICATE_MODAL = gql`
   query authenticateModal {
@@ -10,6 +11,7 @@ const AUTHENTICATE_MODAL = gql`
 `;
 
 function Modal({ isOpen }) {
+  const theme = Theme.useContainer();
   const client = useApolloClient();
   const onClose = () => {
     client.writeQuery({
@@ -42,7 +44,7 @@ function Modal({ isOpen }) {
     modal: {
       height: "500px",
       width: "500px",
-      backgroundColor: Palette["light"].elevation0,
+      backgroundColor: Palette[theme.theme].elevation0,
       position: "relative",
     },
     cross: {

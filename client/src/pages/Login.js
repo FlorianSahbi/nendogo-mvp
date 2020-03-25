@@ -8,6 +8,7 @@ import FacebookLogin from "react-facebook-login";
 import Layout from "../components/Layout";
 import logo from "../logo.svg";
 import { Palette } from "../components/Layout";
+import { Theme } from "../App";
 
 let users = [
   {
@@ -26,26 +27,11 @@ let users = [
   },
 ]
 
-let inputsStyle = {
-  text: {
-    height: "40px",
-    width: "100%",
-    padding: "1rem",
-    border: "1px solid grey",
-    outline: "unset",
-  },
-  submit: {
-    height: "40px",
-    width: "100%",
-    padding: "1rem",
-    border: "1px solid grey",
-    outline: "unset",
-    background: Palette["light"].elevation1,
-  }
-}
+
 
 
 function Login() {
+  const theme = Theme.useContainer();
   console.log(("Login"))
   const history = useHistory();
 
@@ -56,6 +42,24 @@ function Login() {
       history.push("/");
     },
   });
+
+  let inputsStyle = {
+    text: {
+      height: "40px",
+      width: "100%",
+      padding: "1rem",
+      border: "1px solid grey",
+      outline: "unset",
+    },
+    submit: {
+      height: "40px",
+      width: "100%",
+      padding: "1rem",
+      border: "1px solid grey",
+      outline: "unset",
+      background: Palette[theme.theme].elevation1,
+    }
+  }
 
   const isFacebookUser = (emailCurrent) => {
     const userDb = users.find(user => user.email === emailCurrent);
@@ -88,7 +92,7 @@ function Login() {
 
   return (
     <Layout header={false} footer={false}>
-      <div style={{ display: "grid", backgroundColor: Palette["light"].elevation0, gridTemplateColumns: "1fr 1fr", height: "100vh", width: "100%" }}>
+      <div style={{ display: "grid", backgroundColor: Palette[theme.theme].elevation0, gridTemplateColumns: "1fr 1fr", height: "100vh", width: "100%" }}>
         <div style={{ height: "100%", width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
           <img src={logo} alt="logo-site" />
         </div>

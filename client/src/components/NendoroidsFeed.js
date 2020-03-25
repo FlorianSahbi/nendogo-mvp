@@ -7,8 +7,10 @@ import Typography from '../components/Typography';
 import { GET_NENDOROIDS } from "../graphql/nendoroids";
 import { useDebouncedCallback } from 'use-debounce';
 import { Palette } from "./Layout";
+import { Theme } from "../App";
 
 const NendoroidsFeed = ({ filters }) => {
+  const theme = Theme.useContainer();
   const [searchValue, setSearchValue] = useState(null);
   const [[min, max], setRangeFilter] = useState([1201, 1300]);
 
@@ -22,8 +24,8 @@ const NendoroidsFeed = ({ filters }) => {
         height: "100%",
         width: "160px",
         outline: "unset",
-        backgroundColor: Palette["light"].elevation1,
-        border: `1px solid ${Palette["light"].secondary}`,
+        backgroundColor: Palette[theme.theme].elevation1,
+        border: `1px solid ${Palette[theme.theme].secondary}`,
         paddingLeft: "1rem",
 
         fontFamily: "Sawarabi Mincho",
@@ -31,7 +33,7 @@ const NendoroidsFeed = ({ filters }) => {
         fontWeight: "normal",
         fontSize: "14px",
         lineHeight: "1.5rem",
-        color: Palette["light"].text.primary,
+        color: Palette[theme.theme].text.primary,
       }
     }
 
@@ -85,22 +87,22 @@ const NendoroidsFeed = ({ filters }) => {
         root: {
           width: "100%",
           height: "100%",
-          border: `1px solid ${Palette["light"].secondary}`,
+          border: `1px solid ${Palette[theme.theme].secondary}`,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           cursor: "pointer",
-          backgroundColor: Palette["light"].elevation1,
+          backgroundColor: Palette[theme.theme].elevation1,
         },
         active: {
           width: "100%",
           height: "100%",
-          border: `1px solid ${Palette["light"].secondary}`,
+          border: `1px solid ${Palette[theme.theme].secondary}`,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           cursor: "pointer",
-          backgroundColor: Palette["light"].elevation1,
+          backgroundColor: Palette[theme.theme].elevation1,
         }
       }
 
@@ -161,7 +163,9 @@ const NendoroidsFeed = ({ filters }) => {
               nendoroids: [...prev.nendoroids, ...fetchMoreResult.nendoroids]
             })
           }
-        })}>More</div>
+        })}>
+          <Typography type="h3" text="More" textAlign="center" />
+        </div>
       </>
     )
   }

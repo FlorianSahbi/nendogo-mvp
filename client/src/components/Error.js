@@ -2,8 +2,10 @@ import React from "react";
 import logo from "../logo.svg";
 import Typography from "./Typography";
 import { Palette } from "./Layout";
+import { Theme } from "../App";
 
 const Error = ({ message }) => {
+  const theme = Theme.useContainer();
   const styles = {
     root: {
       position: "absolute",
@@ -14,7 +16,7 @@ const Error = ({ message }) => {
       justifyContent: "center",
       alignItems: "center",
       flexDirection: "column",
-      backgroundColor: Palette["light"].elevation0,
+      backgroundColor: Palette[theme.theme].elevation0,
     }
   }
   return (
