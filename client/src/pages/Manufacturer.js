@@ -1,45 +1,37 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import { useParams } from "react-router-dom";
-import Button from "../components/Button";
+import GridLayout from "../components/GridLayout";
 import Loader from "../components/Loader";
 import Layout from "../components/Layout";
-import { GET_NENDOROIDS } from "../graphql/manufacturer";
-import { Palette } from "../components/Layout";
+import { GET_MANUFACTURER } from "../graphql/manufacturer";
 import { Theme } from "../App";
+import Card from "../components/Card";
 
 function Manufacturer() {
-  const theme = Theme.useContainer();
-  console.log(("Manufacturer"))
+  console.log(("Manufacturer"));
   const params = useParams();
-  const { data, loading, error } = useQuery(GET_NENDOROIDS, { variables: { chu: params.manufacturerName } });
-  const styles = {
-    root: {
-      width: "100vw",
-      minHeight: "100vh",
-      backgroundColor: Palette[theme.theme].elevation0,
-    },
-    list: {
-      display: "grid",
-      gridAutoRows: "auto",
-      gridTemplateColumns: "repeat(5, 1fr)",
-      gridGap: "10px",
-    }
-  }
+  const id = params.id;
+  const { data, loading, error } = useQuery(GET_MANUFACTURER, { variables: { id } });
+
   if (loading) {
     return <Loader />
   }
+
   if (error) {
     return <p>{error.message}</p>
   }
+
   if (data) {
+    {
+      console.log(data)
+
+    }
     return (
       <Layout>
-        <div style={styles.root}>
-          <div style={styles.list}>
-            {data.manufacturers.map(({ id, name }) => <Button key={id} label={name} />)}
-          </div>
-        </div>
+        <GridLayout itemsPerRow={5} rowHeight={200}>
+          {data.manufacturer.nendoroids.map(({ id, formattedName, number, images }) => <Card key={id} images={images} number={number} formattedName={formattedName} path={`/nendoroid/${id}`} />)}
+        </GridLayout>
       </Layout>
     );
   }

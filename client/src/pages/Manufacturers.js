@@ -23,7 +23,7 @@ function Manufacturers() {
     return (
       <Layout>
         <GridLayout itemsPerRow={5} rowHeight={200}>
-          {data.manufacturers.map(({ id, name }) => <Button key={id} label={name} fill path={`/manufacturer/${name}`} />)}
+          {data.manufacturers.map(({ id, name }) => <Button key={id} label={name} fill path={`/manufacturer/${id}`} />)}
         </GridLayout>
       </Layout>
     );

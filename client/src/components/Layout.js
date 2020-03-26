@@ -42,9 +42,9 @@ function Layout({ children, header = true, footer = true }) {
     <React.StrictMode>
       <div style={styles.root}>
         <div style={{ position: "absolute", top: 0, right: 0, zIndex: 999, padding: "1rem", display: "flex" }}>
-          <div onClick={theme.switchDark}><FiMoon size="1.5rem" color={Palette[theme.theme].text.primary} /></div>
+          <div onClick={theme.switchDark}><FiMoon style={{ cursor: "pointer" }} size="1.5rem" color={Palette[theme.theme].text.primary} /></div>
           <Spacer direction="horizontal" spacing={.5} />
-          <div onClick={theme.switchLight}><FiSun size="1.5rem" color={Palette[theme.theme].text.primary} /></div>
+          <div onClick={theme.switchLight}><FiSun style={{ cursor: "pointer" }} size="1.5rem" color={Palette[theme.theme].text.primary} /></div>
         </div>
         {header && <Header />}
         {children}

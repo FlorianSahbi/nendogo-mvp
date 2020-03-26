@@ -70,7 +70,7 @@ export default function App() {
             <Serie />
           </Route>
 
-          <Route path="/manufacturer/:manufacturerName">
+          <Route path="/manufacturer/:id">
             <Manufacturer />
           </Route>
 
