@@ -1,10 +1,16 @@
 import { gql } from '@apollo/client';
 
-export const GET_NENDOROIDS = gql`
-query Nendo($chu: String) {
-  sculptors(where: { name: $chu }) {
-    id
-    name
+export const GET_SCULPTOR = gql`
+  query GetSculptor($id: ID!) {
+    sculptor(id: $id) {
+      id
+      name
+      nendoroids {
+        id
+        number
+        formattedName
+        images
+      }
+    }
   }
-}
 `;

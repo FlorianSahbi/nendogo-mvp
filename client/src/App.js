@@ -74,7 +74,7 @@ export default function App() {
             <Manufacturer />
           </Route>
 
-          <Route path="/sculptor/:sculptorName">
+          <Route path="/sculptor/:id">
             <Sculptor />
           </Route>
 

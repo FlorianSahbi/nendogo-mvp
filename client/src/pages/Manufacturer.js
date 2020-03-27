@@ -5,7 +5,6 @@ import GridLayout from "../components/GridLayout";
 import Loader from "../components/Loader";
 import Layout from "../components/Layout";
 import { GET_MANUFACTURER } from "../graphql/manufacturer";
-import { Theme } from "../App";
 import Card from "../components/Card";
 
 function Manufacturer() {
@@ -23,10 +22,6 @@ function Manufacturer() {
   }
 
   if (data) {
-    {
-      console.log(data)
-
-    }
     return (
       <Layout>
         <GridLayout itemsPerRow={5} rowHeight={200}>

@@ -23,7 +23,7 @@ function Sculptors() {
       <Layout>
         <GridLayout itemsPerRow={5} rowHeight={200}>
           {
-            data.sculptors.map(({ id, name }) => <Button key={id} label={name} fill path={`/sculptor/${name}`} />)
+            data.sculptors.map(({ id, name }) => <Button key={id} label={name} fill path={`/sculptor/${id}`} />)
           }
         </GridLayout>
       </Layout>

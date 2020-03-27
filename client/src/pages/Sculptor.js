@@ -1,10 +1,11 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import { useParams } from "react-router-dom";
-import Button from "../components/Button";
+import Card from "../components/Card";
 import Loader from "../components/Loader";
+import Layout from "../components/Layout";
 import GridLayout from "../components/GridLayout";
-import { GET_NENDOROIDS } from "../graphql/sculptor";
+import { GET_SCULPTOR } from "../graphql/sculptor";
 import { Palette } from "../components/Layout";
 import { Theme } from "../App";
 
@@ -12,7 +13,8 @@ function Sculptor() {
   const theme = Theme.useContainer();
   console.log(("Sculptor"))
   const params = useParams();
-  const { data, loading, error } = useQuery(GET_NENDOROIDS, { variables: { chu: params.sculptorName } });
+  const id = params.id;
+  const { data, loading, error } = useQuery(GET_SCULPTOR, { variables: { id } });
   const styles = {
     root: {
       width: "100%",
@@ -28,13 +30,12 @@ function Sculptor() {
   }
   if (data) {
     return (
-      <div style={styles.root}>
-        <GridLayout itemsPerRow={4} rowHeight={200} width={1280}>
-          {
-            data.sculptors.map(({ id, name }) => <Button key={id} label={name} />)
-          }
+      <Layout>
+
+        <GridLayout itemsPerRow={4} rowHeight={200}>
+          {data.sculptor.nendoroids.map(({ id, formattedName, number, images }) => <Card key={id} path={`/nendoroid/${id}`} formattedName={formattedName} number={number} images={images} />)}
         </GridLayout>
-      </div>
+      </Layout>
     );
   }
 }
