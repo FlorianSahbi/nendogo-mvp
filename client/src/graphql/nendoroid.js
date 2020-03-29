@@ -14,11 +14,21 @@ export const GET_NENDOROIDS = gql`
       description
       releaseDate
       series {
+        id
+        name
         nendoroids {
           id
           formattedName
           images
         }
+      }
+      manufacturer {
+        id
+        name
+      }
+      sculptor {
+        id
+        name
       }
     }
   }

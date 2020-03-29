@@ -40,7 +40,7 @@ function Serie() {
     return (
       <Layout>
         <div style={content}>
-          <GridLayout itemsPerRow={4} rowHeight={200} width={1280}>
+          <GridLayout itemsPerRow={4} rowHeight={200}>
             {data.serie.nendoroids.map(({ id, formattedName, images, number }) => <Card key={id} id={id} images={images} number={number} formattedName={formattedName} path={`/nendoroid/${id}`} />)}
           </GridLayout>
         </div>

@@ -14,6 +14,7 @@ export const Palette = {
     elevation0: "#121212",
     elevation1: "#1F1F1F",
     transparent: "#00000080",
+    transparent2: "#000000cc",
   },
   light: {
     text: {
@@ -23,6 +24,7 @@ export const Palette = {
     elevation0: "#F6F6F6",
     elevation1: "#E8E9EA",
     transparent: "#ffffff80",
+    transparent2: "#ffffffcc",
   }
 }
 

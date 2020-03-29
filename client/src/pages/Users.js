@@ -23,7 +23,7 @@ function Users() {
   if (data) {
     return (
       <Layout>
-        <GridLayout itemsPerRow={4} rowHeight={200} width={1280}>
+        <GridLayout itemsPerRow={4} rowHeight={200}>
           {
             data.users.map(({ id, username }) => <Button key={id} fill label={username} path={`/user/${id}`} />)
           }
