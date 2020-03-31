@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, useHistory } from "react-router-dom";
 import Home from "./pages/Home";
 import Serie from "./pages/Serie";
 import Nendoroid from "./pages/Nendoroid";
@@ -22,68 +22,79 @@ function useTheme(initialState: string = "dark") {
   return { theme, switchLight, switchDark };
 }
 
-export const Theme = createContainer(useTheme)
+function useAuth(initialState: any = null) {
+  //@ts-ignore
+  const [credentials, setCredentials] = useState<any>(JSON.parse(localStorage.getItem("credentials_nendogo")) || initialState);
+  const login = () => console.log("login");
+  const logout = () => console.log("logout");
+  return { credentials, login, logout, setCredentials };
+}
+
+export const Theme = createContainer(useTheme);
+export const Auth = createContainer(useAuth);
 
 export default function App() {
   console.log("App")
   const theme = localStorage.getItem("nendogo_theme");
   return (
     <Theme.Provider initialState={theme || "dark"}>
-      <Modal isOpen={!!localStorage.getItem("authenticationModal")} />
-      <Router>
+      <Auth.Provider initialState={null}>
+        <Modal isOpen={!!localStorage.getItem("authenticationModal")} />
+        <Router>
 
-        <Switch>
+          <Switch>
 
-          <Route path="/login">
-            <Login />
-          </Route>
+            <Route path="/login">
+              <Login />
+            </Route>
 
-          <Route path="/nendoroids">
-            <Nendoroids />
-          </Route>
+            <Route path="/nendoroids">
+              <Nendoroids />
+            </Route>
 
-          <Route path="/series">
-            <Series />
-          </Route>
+            <Route path="/series">
+              <Series />
+            </Route>
 
-          <Route path="/manufacturers">
-            <Manufacturers />
-          </Route>
+            <Route path="/manufacturers">
+              <Manufacturers />
+            </Route>
 
-          <Route path="/sculptors">
-            <Sculptors />
-          </Route>
+            <Route path="/sculptors">
+              <Sculptors />
+            </Route>
 
-          <Route path="/users">
-            <Users />
-          </Route>
+            <Route path="/users">
+              <Users />
+            </Route>
 
-          <Route path="/user/:id">
-            <User />
-          </Route>
+            <Route path="/user/:id">
+              <User />
+            </Route>
 
-          <Route path="/nendoroid/:id">
-            <Nendoroid />
-          </Route>
+            <Route path="/nendoroid/:id">
+              <Nendoroid />
+            </Route>
 
-          <Route path="/serie/:id">
-            <Serie />
-          </Route>
+            <Route path="/serie/:id">
+              <Serie />
+            </Route>
 
-          <Route path="/manufacturer/:id">
-            <Manufacturer />
-          </Route>
+            <Route path="/manufacturer/:id">
+              <Manufacturer />
+            </Route>
 
-          <Route path="/sculptor/:id">
-            <Sculptor />
-          </Route>
+            <Route path="/sculptor/:id">
+              <Sculptor />
+            </Route>
 
-          <Route path="/">
-            <Home />
-          </Route>
+            <Route path="/">
+              <Home />
+            </Route>
 
-        </Switch>
-      </Router>
+          </Switch>
+        </Router>
+      </Auth.Provider>
     </Theme.Provider>
   );
 }

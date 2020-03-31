@@ -9,13 +9,6 @@ export const GET_USER = gql`
       profilePicture {
         url
       }
-      interactions {
-        nendoroid {
-          images
-          formattedName
-          id
-        }
-      }
     }
   }
 `;
@@ -26,6 +19,21 @@ export const GET_ME = gql`
       id
       email
       username
+    }
+  }
+`;
+
+export const UPDATE_USER = gql`
+  mutation UpdateUser($id:ID!, $username: String, $email: String){
+    updateUser(
+      input: {
+        where: { id: $id }
+        data: { username: $username, email: $email }
+      }
+    ) {
+      user {
+        username
+      }
     }
   }
 `;

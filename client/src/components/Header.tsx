@@ -6,7 +6,7 @@ import Button from "./Button";
 import { useHistory } from "react-router-dom";
 import Typography from "../components/Typography";
 import { Palette } from "./Layout";
-import { Theme } from "../App";
+import { Theme, Auth } from "../App";
 
 function LoginButton(): ReactElement {
   const history = useHistory();
@@ -21,8 +21,10 @@ function LoginButton(): ReactElement {
 }
 
 function LogoutButton(): ReactElement {
+  const auth = Auth.useContainer();
   const handleLogout = () => {
-    localStorage.clear();
+    auth.setCredentials(null);
+    localStorage.removeItem("credentials_nendogo");
   }
   return (
     <div onClick={handleLogout}>
@@ -33,6 +35,7 @@ function LogoutButton(): ReactElement {
 
 function Header(): ReactElement {
   const theme = Theme.useContainer();
+  const auth = Auth.useContainer();
   const history = useHistory();
   const styles = {
     profile: {
@@ -72,12 +75,12 @@ function Header(): ReactElement {
       </div>
       <Spacer spacing={5} />
 
-      {localStorage.getItem("nendogo_picture")
+      {auth.credentials
         ?
         (
           <div style={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
             <div style={styles.profile} onClick={() => history.push("user/me")}>
-              <Image src={localStorage.getItem("nendogo_picture")} alt="profil" round size={227} />
+              <Image src="https://www.nautiljon.com/images/perso/00/05/nanachi_15450.jpg" alt="profil" round size={227} />
             </div>
             <LogoutButton />
           </div>

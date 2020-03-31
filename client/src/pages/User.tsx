@@ -1,12 +1,35 @@
 import React, { ReactElement } from 'react';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { useParams } from "react-router-dom";
 import Button from "../components/Button";
 import Loader from "../components/Loader";
 import Card from "../components/Card";
-import { GET_USER, GET_ME } from "../graphql/user";
+import { useForm } from "react-hook-form";
+import { GET_USER, GET_ME, UPDATE_USER } from "../graphql/user";
 import { Palette } from "../components/Layout";
 import { Theme } from "../App";
+
+
+const Edit = () => {
+  const params = useParams();
+  // @ts-ignore
+  const userId = params.id;
+  const [editMutation] = useMutation(UPDATE_USER, {
+    onError: error => console.log(error),
+    onCompleted: data => console.log(data)
+  });
+  const { register, handleSubmit } = useForm();
+  const onSubmit = (data: any) => editMutation({ variables: { id: userId, email: data.email, password: data.password } });
+
+  return (
+    //@ts-ignore
+    <form style={{ display: "grid", gridTemplateRows: "1fr 1fr 1fr", gap: ".5rem" }} onSubmit={handleSubmit(onSubmit)}>
+      <input placeholder="Username" type="text" name="username" ref={register({ required: true })} />
+      <input placeholder="Email" type="email" name="email" ref={register({ required: true })} />
+      <input type="submit" />
+    </form>
+  )
+}
 
 function User(): ReactElement {
   const theme = Theme.useContainer();
@@ -49,14 +72,10 @@ function User(): ReactElement {
     return (
       <div style={styles.root}>
         <div>
+          <Edit />
           {/* {data.user.profilePicture || data.me.profilePicture &&
             <Image src={`http://localhost:1337${data.user.profilePicture.url}`} alt="profil" round size={227} />
           } */}
-          <div style={{ display: 'grid', gridTemplateColumns: "repeat(5, 1fr)" }}>
-
-            {data.user.interactions.map(({ nendoroid: { id, formattedName, images } }: any) => <Card key={id} interactions={[]} id={id} formattedName={formattedName} images={images} path={`nendoroid/${id}`} />)}
-          </div>
-
           <Button label={data.user.username || data.me.username} />
         </div>
       </div>

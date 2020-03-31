@@ -7,7 +7,6 @@ export const REGISTER = gql`
       user {
         id
         username
-        email
       }
     }
   }

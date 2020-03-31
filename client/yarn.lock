@@ -2,6 +2,21 @@
 # yarn lockfile v1
 
 
+"@apollo/client@^3.0.0-beta.23":
+  version "3.0.0-rc.7"
+  resolved "https://registry.yarnpkg.com/@apollo/client/-/client-3.0.0-rc.7.tgz#f57b297bd92f06c9bb6a8e0ec71ddfdd3fc2fca0"
+  integrity sha512-pS68924tMZFBlC+Rbqy9rMqvqNHNKL2Jx/lw45aSCclpmk7GuIEFZCXAZihKG3PRYVZGG8p7DTQrdfC8XH51/w==
+  dependencies:
+    "@types/zen-observable" "^0.8.0"
+    "@wry/equality" "^0.1.9"
+    fast-json-stable-stringify "^2.0.0"
+    graphql-tag "^2.10.2"
+    optimism "^0.12.1"
+    symbol-observable "^1.2.0"
+    ts-invariant "^0.4.4"
+    tslib "^1.10.0"
+    zen-observable "^0.8.14"
+
 "@apollo/client@^3.0.0-rc.2":
   version "3.0.0-rc.2"
   resolved "https://registry.yarnpkg.com/@apollo/client/-/client-3.0.0-rc.2.tgz#2534eac9d430200f795a3849c187a7a1a946f90d"
@@ -16,6 +31,14 @@
     ts-invariant "^0.4.4"
     tslib "^1.10.0"
     zen-observable "^0.8.14"
+
+"@apollo/link-error@^2.0.0-beta.3":
+  version "2.0.0-beta.3"
+  resolved "https://registry.yarnpkg.com/@apollo/link-error/-/link-error-2.0.0-beta.3.tgz#80182f2be07980921fe441a8d66c08914f5a9b56"
+  integrity sha512-blNBBi9+4SEfb4Bhn8cYqGFhb0C7MjqLiRwNdUqwGefl1w+G8Ze8pCLHAyPxXLcslirtht9LY0i6ZOpCzSXHCg==
+  dependencies:
+    "@apollo/client" "^3.0.0-beta.23"
+    tslib "^1.9.3"
 
 "@babel/code-frame@7.8.3", "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.8.3":
   version "7.8.3"
