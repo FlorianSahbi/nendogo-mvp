@@ -67,10 +67,6 @@
     "interactions": {
       "collection": "interaction",
       "via": "user"
-    },
-    "graphDomain": {
-      "type": "string",
-      "default": "null"
     }
   }
 }
