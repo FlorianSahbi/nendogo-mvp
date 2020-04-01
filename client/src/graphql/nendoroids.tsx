@@ -12,3 +12,19 @@ export const GET_NENDOROIDS = gql`
     }
   }
 `;
+
+export const GET_USER_INTERACTIONS = gql`
+  query GetUserInteractions($id: ID) {
+    interactions(where: { user: { id: $id } }) {
+      id
+      user {
+        id
+        username
+      }
+      nendoroid {
+        id
+        formattedName
+      }
+    }
+  }
+`;

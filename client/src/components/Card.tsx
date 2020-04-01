@@ -1,10 +1,69 @@
 import React, { useState, ReactElement } from "react";
+import { useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 import Typography from "../components/Typography";
 import { Palette } from "./Layout";
-import { Theme } from "../App";
+import { Theme, Auth } from "../App";
+import { FaRegHeart, FaHeart } from 'react-icons/fa';
+import { CREATE_INTERACTION, DELETE_INTERACTION } from "../graphql/interaction";
 
-const Image = ({ src, alt }: any): ReactElement => {
+interface foregroundProps {
+  name: string;
+  number: number;
+  isActive: boolean;
+}
+
+interface imageProps {
+  src: string;
+  alt: string;
+}
+
+function LikeInteraction({ isLiked, idNendo, likeId }: any) {
+  const [createInteraction] = useMutation(CREATE_INTERACTION);
+  const [deleteInteraction] = useMutation(DELETE_INTERACTION);
+  const auth = Auth.useContainer();
+
+
+  const styles = {
+    root: {
+      height: "50px",
+      width: "50px",
+      position: "absolute",
+      zIndex: "999",
+      top: "0",
+      right: "0",
+      margin: "0.5rem",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      // border: "2px solid blue",
+    }
+  }
+
+  const handleLike = (e: any) => {
+    e.stopPropagation();
+    if (!isLiked && auth.credentials) {
+      createInteraction({ variables: { user: auth.credentials.login.user.id, nendoroid: idNendo, type: "LIKE" } })
+    } else if (isLiked && auth.credentials) {
+      console.log(likeId[0])
+      deleteInteraction({ variables: { id: likeId[0] } })
+    } else {
+      console.log("open modal")
+    }
+  }
+
+  return (
+    //@ts-ignore
+    <div style={styles.root} onClick={(e) => handleLike(e)}>
+      {isLiked
+        ? <FaHeart size="2rem" color="red" />
+        : <FaRegHeart size="2rem" color="red" />
+      }
+    </div>
+  )
+}
+
+const Image = ({ src, alt }: imageProps): ReactElement => {
   const styles = {
     root: {
       position: "relative",
@@ -27,7 +86,7 @@ const Image = ({ src, alt }: any): ReactElement => {
   )
 }
 
-const Foreground = ({ name, number, isActive = false }: any): ReactElement => {
+const Foreground = ({ name, number, isActive = false }: foregroundProps): ReactElement => {
   const theme = Theme.useContainer();
   const styles = {
     default: {
@@ -69,7 +128,7 @@ const Foreground = ({ name, number, isActive = false }: any): ReactElement => {
   )
 }
 
-function Card({ id, images, formattedName, path, number, loading }: any): ReactElement {
+function Card({ id, images, formattedName, path, number, loading, isLiked, likeId }: any): ReactElement {
   const theme = Theme.useContainer();
   const history = useHistory();
   const [isActive, setIsActive] = useState(false);
@@ -109,6 +168,7 @@ function Card({ id, images, formattedName, path, number, loading }: any): ReactE
         // @ts-ignore
         style={styles.root}
       >
+        <LikeInteraction idNendo={id} isLiked={isLiked} likeId={likeId} />
         <Foreground name={formattedName} number={number} isActive={isActive} />
         <Image src={images[0]} alt={`${id}-card`} />
       </div>

@@ -4,12 +4,14 @@ import Error from "../components/Error";
 import Card from "../components/Card";
 import GridLayout from "../components/GridLayout";
 import Typography from '../components/Typography';
-import { GET_NENDOROIDS } from "../graphql/nendoroids";
+import { GET_NENDOROIDS, GET_USER_INTERACTIONS } from "../graphql/nendoroids";
 import { useDebouncedCallback } from 'use-debounce';
 import { Palette } from "./Layout";
-import { Theme } from "../App";
+import { Theme, Auth } from "../App";
 
 const NendoroidsFeed = ({ filters }: any): ReactElement => {
+  console.log("FEED NENDO")
+  const auth = Auth.useContainer();
   const theme = Theme.useContainer();
   const [searchValue, setSearchValue] = useState<any>(null);
   const [[min, max], setRangeFilter] = useState<any>([1201, 1300]);
@@ -17,6 +19,12 @@ const NendoroidsFeed = ({ filters }: any): ReactElement => {
   const { data, loading, error, fetchMore } = useQuery(GET_NENDOROIDS, {
     variables: { "start": 0, "min": min, "max": max, "searchValue": searchValue }
   });
+
+
+  const { data: d1, loading: l1, error: e1 } = useQuery(GET_USER_INTERACTIONS, {
+    variables: { id: auth?.credentials?.login.user.id || null }
+  });
+
 
   function Search({ placeholder, onSearchFilter }: any): ReactElement {
     const styles = {
@@ -145,17 +153,34 @@ const NendoroidsFeed = ({ filters }: any): ReactElement => {
     )
   }
 
-  const RenderCards = () => {
+  const RenderCards = ({ interactions = [] }: any) => {
+    const nendoLikedId = interactions.interactions.map(({ id, nendoroid: { id: nendoId } }: any) => [id, nendoId]);
     return (
-      data.nendoroids.map(({ id, formattedName, images, number }: any) => <Card key={id} id={id} formattedName={formattedName} number={number} images={images} path={`/nendoroid/${id}`} fill />)
+      data.nendoroids.map(({ id, formattedName, images, number }: any) => {
+        const likeId = nendoLikedId.filter((n: any) => n[1] === id)[0];
+        return (
+          <Card
+            isLiked={nendoLikedId.filter((n: any) => n[1] === id).length > 0}
+            likeId={likeId}
+            key={id}
+            id={id}
+            formattedName={formattedName}
+            number={number}
+            images={images}
+            path={`/nendoroid/${id}`}
+            fill
+          />
+        )
+      })
     )
   }
 
-  if (error) {
+  if (error || e1) {
+    //@ts-ignore
     return <Error message={error.message} />
   }
 
-  if (data || loading) {
+  if (data || loading || d1 || l1) {
     return (
       <>
         {filters &&
@@ -165,8 +190,8 @@ const NendoroidsFeed = ({ filters }: any): ReactElement => {
           </div>
         }
         <GridLayout itemsPerRow={5} rowHeight={200}>
-          {loading && <RenderSkeleton key={"idk"} />}
-          {!loading && <RenderCards />}
+          {loading || l1 && <RenderSkeleton key={"idk"} />}
+          {!loading && !l1 && <RenderCards interactions={d1} />}
         </GridLayout>
         <div onClick={() => fetchMore({
           variables: { start: data.nendoroids.length }, updateQuery: (prev, { fetchMoreResult }) => {
