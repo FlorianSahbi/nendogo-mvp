@@ -46,7 +46,7 @@ function LikeInteraction({ isLiked, idNendo, likeId }: any) {
       createInteraction({ variables: { user: auth.credentials.login.user.id, nendoroid: idNendo, type: "LIKE" } })
     } else if (isLiked && auth.credentials) {
       console.log(likeId[0])
-      deleteInteraction({ variables: { id: likeId[0] } })
+      deleteInteraction({ variables: { id: likeId || likeId[0] } })
     } else {
       console.log("open modal")
     }

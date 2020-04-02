@@ -1,17 +1,20 @@
 import React, { ReactElement } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import Button from "../components/Button";
 import Loader from "../components/Loader";
+import Typography from "../components/Typography";
 import Card from "../components/Card";
 import { useForm } from "react-hook-form";
 import { GET_USER, GET_ME, UPDATE_USER } from "../graphql/user";
 import { Palette } from "../components/Layout";
 import { Theme } from "../App";
+import GridLayout from "../components/GridLayout";
 
 
 const Edit = () => {
   const params = useParams();
+  const history = useHistory();
   // @ts-ignore
   const userId = params.id;
   const [editMutation] = useMutation(UPDATE_USER, {
@@ -67,16 +70,17 @@ function User(): ReactElement {
     );
   }
 
-
   if (data.user) {
     return (
       <div style={styles.root}>
         <div>
           <Edit />
-          {/* {data.user.profilePicture || data.me.profilePicture &&
-            <Image src={`http://localhost:1337${data.user.profilePicture.url}`} alt="profil" round size={227} />
-          } */}
-          <Button label={data.user.username || data.me.username} />
+          <Typography type="h3" text={data.user.username} />
+
+          <GridLayout itemsPerRow={10} gap={10} rowHeight={200}>
+            {console.log(data.user.interactions)}
+            {data.user.interactions.map(({ id:likeId, nendoroid: { formattedName, id, images } }: any) => <Card likeId={likeId} isLiked={true} images={images} formattedName={formattedName} path={`/nendoroid/${id}`} />)}
+          </GridLayout>
         </div>
       </div>
     );

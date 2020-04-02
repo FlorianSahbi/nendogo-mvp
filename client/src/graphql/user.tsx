@@ -9,6 +9,14 @@ export const GET_USER = gql`
       profilePicture {
         url
       }
+      interactions {
+        id
+        nendoroid {
+          id
+          formattedName
+          images
+        }
+      }
     }
   }
 `;
