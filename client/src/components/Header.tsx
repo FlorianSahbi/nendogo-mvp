@@ -79,7 +79,7 @@ function Header(): ReactElement {
         ?
         (
           <div style={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
-            <div style={styles.profile} onClick={() => history.push("user/me")}>
+            <div style={styles.profile} onClick={() => history.push(`user/${auth.credentials.login.user.id}`)}>
               <Image src="https://www.nautiljon.com/images/perso/00/05/nanachi_15450.jpg" alt="profil" round size={227} />
             </div>
             <LogoutButton />

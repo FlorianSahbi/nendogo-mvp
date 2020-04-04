@@ -5,9 +5,11 @@ import Error from "../components/Error";
 import Spacer from "../components/Spacer";
 import GridLayout from "../components/GridLayout";
 import Layout from "../components/Layout";
+import { Theme } from "../App";
 import { GET_SERIES } from "../graphql/series";
 import { useHistory } from "react-router-dom";
 import Typography from '../components/Typography';
+import { Palette } from "../components/Layout";
 
 const RoundPicture = ({ src, alt, size = "m" }: any): ReactElement => {
   const styles = {
@@ -38,12 +40,50 @@ const RoundPicture = ({ src, alt, size = "m" }: any): ReactElement => {
     // @ts-ignore
     <div style={styles[size]}>
       {/* @ts-ignore */}
-      <img loading="lazy" style={styles.image} src={src} alt={alt} />
+      <img style={styles.image} src={src} alt={alt} />
+    </div>
+  )
+}
+
+const Background = ({ nendoroids }: any): ReactElement => {
+  const styles = {
+    root: {
+      height: "100%",
+      width: "100%",
+      zIndex: 1,
+      position: "absolute",
+      display: "flex",
+    },
+    image: {
+      height: "100%",
+      width: "100%",
+      display: "flex",
+    },
+    i: {
+      height: "100%",
+      width: "100%",
+      objectFit: "cover",
+      overflow: "hidden",
+      transform: "skew(5px)"
+    }
+  }
+  return (
+    // @ts-ignore
+    <div style={styles.root}>
+      {nendoroids.slice(0, 5).map(({ images }: any) => {
+        return (
+          <div style={styles.image}>
+            {/* @ts-ignore */}
+            <img style={styles.i} src={images[0]} alt="j" />
+          </div>
+        )
+      })}
     </div>
   )
 }
 
 const Card = ({ id, name, nendoroids, path }: any) => {
+  const theme = Theme.useContainer();
   const history = useHistory();
   const styles = {
     root: {
@@ -54,6 +94,8 @@ const Card = ({ id, name, nendoroids, path }: any) => {
       justifyContent: "center",
       alignItems: "center",
       flexDirection: "column",
+      position: "relative",
+      // border: "3px solid blue",
     },
     nendos: {
       width: "100%",
@@ -64,12 +106,12 @@ const Card = ({ id, name, nendoroids, path }: any) => {
   return (
     // @ts-ignore
     <div style={styles.root} onClick={() => history.push(path)}>
-      <Typography text={name} type="h3" textAlign="center" />
-      <Typography text={nendoroids.length} type="body1" textAlign="center" />
-      <Spacer direction="vertical" spacing={1} />
-      <div style={styles.nendos}>
-        {nendoroids.slice(0, 5).map(({ images }: any) => <RoundPicture key={`${Math.random()}-round-picture`} src={images[0]} alt={`${id}-image`} size="l" />)}
+      {/* @ts-ignore */}
+      <div style={{ padding: "0.5rem", backgroundColor: Palette[theme.theme].transparent, position: "relative", zIndex: 2, height: "100%", width: "100%", backdropFilter: "blur(2px)", display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
+        <Typography text={name} type="h3" textAlign="center" />
+        <Typography text={nendoroids.length} type="body1" textAlign="center" />
       </div>
+      <Background nendoroids={nendoroids} />
     </div>
   )
 }
