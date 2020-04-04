@@ -21,6 +21,10 @@
       "via": "interactions",
       "plugin": "users-permissions",
       "model": "user"
+    },
+    "nendoroid": {
+      "via": "interactions",
+      "model": "nendoroid"
     }
   }
 }
