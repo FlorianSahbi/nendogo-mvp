@@ -219,7 +219,14 @@ function Nendoroid() {
 
           <RelatedProduct nendoroids={series.nendoroids} />
 
+
+
+          <div >
+            {data.nendoroid.interactions.map(({ user: { username } }: any) => <Typography text={username} type="h3" />)}
+          </div>
+
         </div>
+
       </Layout>
     );
   }

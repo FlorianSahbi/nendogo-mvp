@@ -30,6 +30,12 @@ export const GET_NENDOROIDS = gql`
         id
         name
       }
+      interactions {
+        user{
+          id 
+          username
+        }
+      }
     }
   }
 `;
