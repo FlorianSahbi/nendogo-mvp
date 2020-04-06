@@ -11,18 +11,12 @@ import { Theme, Auth } from "../App";
 
 const NendoroidsFeed = ({ filters }: any): ReactElement => {
   console.log("FEED NENDO")
-  const auth = Auth.useContainer();
   const theme = Theme.useContainer();
   const [searchValue, setSearchValue] = useState<any>(null);
   const [[min, max], setRangeFilter] = useState<any>([1201, 1300]);
 
   const { data, loading, error, fetchMore } = useQuery(GET_NENDOROIDS, {
     variables: { "start": 0, "min": min, "max": max, "searchValue": searchValue }
-  });
-
-
-  const { data: d1, loading: l1, error: e1 } = useQuery(GET_USER_INTERACTIONS, {
-    variables: { id: auth?.credentials?.login.user.id || null }
   });
 
 
@@ -153,20 +147,17 @@ const NendoroidsFeed = ({ filters }: any): ReactElement => {
     )
   }
 
-  const RenderCards = ({ interactions = [] }: any) => {
-    const nendoLikedId = interactions.interactions.map(({ id, nendoroid: { id: nendoId } }: any) => [id, nendoId]);
+  const RenderCards = () => {
     return (
-      data.nendoroids.map(({ id, formattedName, images, number }: any) => {
-        const likeId = nendoLikedId.filter((n: any) => n[1] === id)[0];
+      data.nendoroids.map(({ id, formattedName, images, number, interactions }: any) => {
         return (
           <Card
-            isLiked={nendoLikedId.filter((n: any) => n[1] === id).length > 0}
-            likeId={likeId}
             key={id}
             id={id}
             formattedName={formattedName}
             number={number}
             images={images}
+            interactions={interactions}
             path={`/nendoroid/${id}`}
             fill
           />
@@ -175,12 +166,12 @@ const NendoroidsFeed = ({ filters }: any): ReactElement => {
     )
   }
 
-  if (error || e1) {
+  if (error) {
     //@ts-ignore
     return <Error message={error.message} />
   }
 
-  if (data || loading || d1 || l1) {
+  if (data || loading) {
     return (
       <>
         {filters &&
@@ -190,8 +181,8 @@ const NendoroidsFeed = ({ filters }: any): ReactElement => {
           </div>
         }
         <GridLayout itemsPerRow={5} rowHeight={200}>
-          {loading || l1 && <RenderSkeleton key={"idk"} />}
-          {!loading && !l1 && <RenderCards interactions={d1} />}
+          {loading && <RenderSkeleton key={"idk"} />}
+          {!loading && <RenderCards />}
         </GridLayout>
         <div onClick={() => fetchMore({
           variables: { start: data.nendoroids.length }, updateQuery: (prev, { fetchMoreResult }) => {

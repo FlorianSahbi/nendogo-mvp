@@ -9,6 +9,17 @@ export const GET_NENDOROIDS = gql`
       price
       images
       range
+      interactions {
+        id
+        nendoroid {
+          id
+          formattedName
+        }
+        user {
+          id
+          username
+        }
+      }
     }
   }
 `;

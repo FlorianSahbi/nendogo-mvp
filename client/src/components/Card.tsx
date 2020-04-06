@@ -18,10 +18,18 @@ interface imageProps {
   alt: string;
 }
 
-function LikeInteraction({ isLiked, idNendo, likeId }: any) {
+function LikeInteraction({ nendoId, interactions }: any) {
+  const auth = Auth.useContainer();
+  const currentUserId = auth.credentials.login.user.id;
+  const interaction = interactions.filter((i: any) => i.user.id === currentUserId)[0]
+  let intId: null = null;
+  if (interaction) {
+    intId = interaction.id
+  }
+
   const [createInteraction] = useMutation(CREATE_INTERACTION);
   const [deleteInteraction] = useMutation(DELETE_INTERACTION);
-  const auth = Auth.useContainer();
+  const [isLiked, setIsLiked] = useState(interactions.filter((i: any) => i.user.id === currentUserId).length > 0);
 
 
   const styles = {
@@ -43,12 +51,12 @@ function LikeInteraction({ isLiked, idNendo, likeId }: any) {
   const handleLike = (e: any) => {
     e.stopPropagation();
     if (!isLiked && auth.credentials) {
-      createInteraction({ variables: { user: auth.credentials.login.user.id, nendoroid: idNendo, type: "LIKE" } })
+      setIsLiked(true);
+      createInteraction({ variables: { user: currentUserId, nendoroid: nendoId, type: "LIKE" } })
     } else if (isLiked && auth.credentials) {
-      console.log(likeId[0])
-      deleteInteraction({ variables: { id: likeId || likeId[0] } })
+      setIsLiked(false);
+      deleteInteraction({ variables: { id: intId } })
     } else {
-      console.log("open modal")
     }
   }
 
@@ -128,7 +136,7 @@ const Foreground = ({ name, number, isActive = false }: foregroundProps): ReactE
   )
 }
 
-function Card({ id, images, formattedName, path, number, loading, isLiked, likeId }: any): ReactElement {
+function Card({ id, images, formattedName, path, number, loading, interactions }: any): ReactElement {
   const theme = Theme.useContainer();
   const history = useHistory();
   const [isActive, setIsActive] = useState(false);
@@ -154,6 +162,7 @@ function Card({ id, images, formattedName, path, number, loading, isLiked, likeI
       overflow: "hidden",
     },
   }
+
   if (loading) {
     return (
       // @ts-ignore
@@ -168,7 +177,7 @@ function Card({ id, images, formattedName, path, number, loading, isLiked, likeI
         // @ts-ignore
         style={styles.root}
       >
-        <LikeInteraction idNendo={id} isLiked={isLiked} likeId={likeId} />
+        <LikeInteraction nendoId={id} interactions={interactions} />
         <Foreground name={formattedName} number={number} isActive={isActive} />
         <Image src={images[0]} alt={`${id}-card`} />
       </div>
