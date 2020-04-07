@@ -20,9 +20,14 @@ interface imageProps {
 
 function LikeInteraction({ nendoId, interactions }: any) {
   const auth = Auth.useContainer();
-  const currentUserId = auth.credentials.login.user.id;
-  const interaction = interactions.filter((i: any) => i.user.id === currentUserId)[0]
-  let intId: null = null;
+  let intId: any = null;
+  let interaction: any = null;
+  let currentUserId: any = false;
+  console.log(auth.credentials)
+  if (auth.credentials) {
+    currentUserId = auth.credentials.login.user.id;
+    interaction = interactions.filter((i: any) => i.user.id === currentUserId)[0]
+  }
   if (interaction) {
     intId = interaction.id
   }
@@ -137,6 +142,7 @@ const Foreground = ({ name, number, isActive = false }: foregroundProps): ReactE
 }
 
 function Card({ id, images, formattedName, path, number, loading, interactions }: any): ReactElement {
+  // console.log(interactions)
   const theme = Theme.useContainer();
   const history = useHistory();
   const [isActive, setIsActive] = useState(false);
@@ -177,7 +183,7 @@ function Card({ id, images, formattedName, path, number, loading, interactions }
         // @ts-ignore
         style={styles.root}
       >
-        <LikeInteraction nendoId={id} interactions={interactions} />
+        {/* <LikeInteraction nendoId={id} interactions={interactions} /> */}
         <Foreground name={formattedName} number={number} isActive={isActive} />
         <Image src={images[0]} alt={`${id}-card`} />
       </div>

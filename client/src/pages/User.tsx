@@ -79,7 +79,7 @@ function User(): ReactElement {
 
           <GridLayout itemsPerRow={10} gap={10} rowHeight={200}>
             {console.log(data.user.interactions)}
-            {data.user.interactions.map(({ id:likeId, nendoroid: { formattedName, id, images } }: any) => <Card likeId={likeId} isLiked={true} images={images} formattedName={formattedName} path={`/nendoroid/${id}`} />)}
+            {data.user.interactions.map(({ id, nendoroid: { formattedName, id: NendoId, images } }: any) => <Card id={NendoId} key={NendoId} images={images} formattedName={formattedName} interactions={data.user.interactions} path={`/nendoroid/${id}`} />)}
           </GridLayout>
         </div>
       </div>

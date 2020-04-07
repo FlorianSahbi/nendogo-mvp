@@ -11,6 +11,9 @@ export const GET_USER = gql`
       }
       interactions {
         id
+        user {
+          id
+        }
         nendoroid {
           id
           formattedName

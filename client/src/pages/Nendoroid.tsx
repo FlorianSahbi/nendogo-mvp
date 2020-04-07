@@ -1,5 +1,5 @@
 import React, { useEffect, useState, ReactElement } from 'react';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { useParams, useHistory } from "react-router-dom";
 import Typography from "../components/Typography";
 import Loader from "../components/Loader";
@@ -7,9 +7,9 @@ import Spacer from "../components/Spacer";
 import Card from "../components/Card";
 import Layout from "../components/Layout";
 import { format } from 'date-fns'
-import { GET_NENDOROIDS } from "../graphql/nendoroid";
+import { GET_NENDOROIDS, ADD_VIEW } from "../graphql/nendoroid";
 import { Palette } from "../components/Layout";
-import { Theme } from "../App";
+import { Theme, Auth } from "../App";
 
 const Preview = ({ src, isOpen, onClose }: any): ReactElement => {
   const theme = Theme.useContainer();
@@ -94,6 +94,7 @@ const Entity = ({ type, name, path }: any) => {
 }
 
 function Nendoroid() {
+  const auth = Auth.useContainer();
   const [oPreview, setOPreview] = useState([false, 2]);
   console.log(oPreview)
   const theme = Theme.useContainer();
@@ -101,13 +102,19 @@ function Nendoroid() {
   const params = useParams();
 
   useEffect(() => {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
+    addView();
   }, [])
 
   const { data, loading, error } = useQuery(GET_NENDOROIDS, {
     //@ts-ignore
     variables: { chu: params.id },
   });
+
+  const [addView] = useMutation(ADD_VIEW, {
+    //@ts-ignore
+    variables: { type: "VIEW", nendoroid: params.id, user: auth.credentials.login.user.id }
+  })
 
   const styles = {
     root: {
