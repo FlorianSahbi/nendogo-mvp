@@ -14,17 +14,18 @@
       "enum": [
         "LIKE",
         "WISH",
-        "OWN"
+        "OWN",
+        "VIEW"
       ]
     },
     "user": {
-      "via": "interactions",
       "plugin": "users-permissions",
-      "model": "user"
+      "model": "user",
+      "via": "interactions"
     },
     "nendoroid": {
-      "via": "interactions",
-      "model": "nendoroid"
+      "model": "nendoroid",
+      "via": "interactions"
     }
   }
 }

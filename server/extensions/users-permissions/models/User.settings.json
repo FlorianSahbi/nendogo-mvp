@@ -65,8 +65,8 @@
       "required": false
     },
     "interactions": {
-      "collection": "interaction",
-      "via": "user"
+      "via": "user",
+      "collection": "interaction"
     }
   }
 }
